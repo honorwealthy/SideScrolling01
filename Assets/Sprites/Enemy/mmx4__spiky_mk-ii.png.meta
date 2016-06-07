@@ -1,0 +1,460 @@
+fileFormatVersion: 2
+guid: 3ebae517dc0c505469661b50f0796615
+timeCreated: 1465232402
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: mmx4__spiky_mk-ii_0
+    21300002: mmx4__spiky_mk-ii_1
+    21300004: mmx4__spiky_mk-ii_2
+    21300006: mmx4__spiky_mk-ii_3
+    21300008: mmx4__spiky_mk-ii_4
+    21300010: mmx4__spiky_mk-ii_5
+    21300012: mmx4__spiky_mk-ii_6
+    21300014: mmx4__spiky_mk-ii_7
+    21300016: mmx4__spiky_mk-ii_8
+    21300018: mmx4__spiky_mk-ii_9
+    21300020: mmx4__spiky_mk-ii_10
+    21300022: mmx4__spiky_mk-ii_11
+    21300024: mmx4__spiky_mk-ii_12
+    21300026: mmx4__spiky_mk-ii_13
+    21300028: mmx4__spiky_mk-ii_14
+    21300030: mmx4__spiky_mk-ii_15
+    21300032: mmx4__spiky_mk-ii_16
+    21300034: mmx4__spiky_mk-ii_17
+    21300036: mmx4__spiky_mk-ii_18
+    21300038: mmx4__spiky_mk-ii_19
+    21300040: mmx4__spiky_mk-ii_20
+    21300042: mmx4__spiky_mk-ii_21
+    21300044: mmx4__spiky_mk-ii_22
+    21300046: mmx4__spiky_mk-ii_23
+    21300048: mmx4__spiky_mk-ii_24
+    21300050: mmx4__spiky_mk-ii_25
+    21300052: mmx4__spiky_mk-ii_26
+    21300054: mmx4__spiky_mk-ii_27
+    21300056: mmx4__spiky_mk-ii_28
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: mmx4__spiky_mk-ii_0
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24, y: 48}
+        - {x: -24, y: 0}
+        - {x: 13, y: 0}
+        - {x: 24, y: 7}
+        - {x: 24, y: 41}
+        - {x: 16, y: 48}
+    - name: mmx4__spiky_mk-ii_1
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22, y: 48}
+        - {x: -24, y: 47}
+        - {x: -24, y: 5}
+        - {x: -22, y: 0}
+        - {x: 21, y: 0}
+        - {x: 24, y: 6}
+        - {x: 24, y: 42}
+        - {x: 11, y: 48}
+    - name: mmx4__spiky_mk-ii_2
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24, y: 47}
+        - {x: -24, y: 0}
+        - {x: 23, y: 0}
+        - {x: 24, y: 3}
+        - {x: 24, y: 46}
+        - {x: 19, y: 47}
+    - name: mmx4__spiky_mk-ii_3
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 23, y: 43}
+        - {x: 4, y: 48}
+        - {x: -3, y: 48}
+        - {x: -20, y: 45}
+        - {x: -24, y: 37}
+        - {x: -24, y: 3}
+        - {x: -17, y: 0}
+        - {x: 19, y: 0}
+        - {x: 24, y: 19}
+        - {x: 24, y: 26}
+    - name: mmx4__spiky_mk-ii_4
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 48}
+        - {x: -24, y: 44}
+        - {x: -24, y: 0}
+        - {x: 24, y: 0}
+        - {x: 24, y: 39}
+        - {x: 17, y: 48}
+    - name: mmx4__spiky_mk-ii_5
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 149
+        width: 48
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -15, y: 48}
+        - {x: -24, y: 40}
+        - {x: -24, y: 6}
+        - {x: -13, y: 0}
+        - {x: 23, y: 0}
+        - {x: 24, y: 1}
+        - {x: 24, y: 40}
+        - {x: 18, y: 48}
+    - name: mmx4__spiky_mk-ii_6
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 102
+        width: 39
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8.5, y: 40}
+        - {x: -19.5, y: 31}
+        - {x: -19.5, y: 6}
+        - {x: -13.5, y: 0}
+        - {x: 9.5, y: 0}
+        - {x: 19.5, y: 9}
+        - {x: 19.5, y: 36}
+        - {x: 12.5, y: 40}
+    - name: mmx4__spiky_mk-ii_7
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 102
+        width: 33
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11.5, y: 35}
+        - {x: -16.5, y: 29}
+        - {x: -16.5, y: 1}
+        - {x: -15.5, y: 0}
+        - {x: 0.5, y: 0}
+        - {x: 9.5, y: 3}
+        - {x: 16.5, y: 11}
+        - {x: 16.5, y: 35}
+    - name: mmx4__spiky_mk-ii_8
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 103
+        width: 34
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 34}
+        - {x: -17, y: 29}
+        - {x: -17, y: 0}
+        - {x: 9, y: 0}
+        - {x: 17, y: 17}
+        - {x: 17, y: 34}
+    - name: mmx4__spiky_mk-ii_9
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 106
+        width: 42
+        height: 31
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_10
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 108
+        width: 48
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_11
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 108
+        width: 48
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_12
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 108
+        width: 48
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_13
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 109
+        width: 48
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_14
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 60
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_15
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 59
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_16
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 60
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_17
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 60
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_18
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 59
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_19
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 59
+        width: 49
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_20
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 28
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_21
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 28
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_22
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_23
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 28
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_24
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 30
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_25
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 31
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_26
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 31
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: mmx4__spiky_mk-ii_27
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 31
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
