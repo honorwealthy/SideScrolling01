@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroController : MonoBehaviour
+public class GroundController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb2d;
@@ -9,16 +9,11 @@ public class HeroController : MonoBehaviour
 
     public float Speed = 5.0f;
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
     }
-
-    //private void Update()
-    //{
-
-    //}
 
     private void FixedUpdate()
     {
