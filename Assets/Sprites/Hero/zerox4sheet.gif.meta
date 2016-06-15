@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5674371249c301b45975a3bafdce326f
-timeCreated: 1465284969
+timeCreated: 1465957576
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -3821,28 +3821,6 @@ TextureImporter:
         y: 36
         width: 6
         height: 79
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: zerox4sheet_193
-      rect:
-        serializedVersion: 2
-        x: 255
-        y: 16
-        width: 156
-        height: 12
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: zerox4sheet_194
-      rect:
-        serializedVersion: 2
-        x: 255
-        y: 3
-        width: 123
-        height: 12
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
