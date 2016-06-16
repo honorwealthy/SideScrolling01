@@ -1,5 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
+
+[CustomEditor(typeof(PlayerStateMachine))]
+public class PlayerStateMachineEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        PlayerStateMachine myScript = (PlayerStateMachine)target;
+        if (GUILayout.Button("Reset StateMachine"))
+        {
+            myScript.GotoState("GroundState");
+            EditorGUIUtility.ExitGUI();
+        }
+    }
+}
 
 //public class BasePlayerController : MonoBehaviour
 //{

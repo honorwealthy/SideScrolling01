@@ -6,14 +6,12 @@ public class Player : MonoBehaviour
     public Transform GroundCheck;
     public IAvatar Avatar { get; private set; }
 
-    //private Old2PlayerStateMachine _playerStateMachine;
     private PlayerStateMachine _playerStateMachine;
 
     private void Awake()
     {
         InitAvatar();
         InitPlayerStateMachine();
-        //Old2InitPlayerStateMachine();
     }
 
     private void InitAvatar()
@@ -29,15 +27,6 @@ public class Player : MonoBehaviour
     {
         _playerStateMachine = gameObject.AddComponent<PlayerStateMachine>();
     }
-
-    //private void Old2InitPlayerStateMachine()
-    //{
-    //    _playerStateMachine = gameObject.AddComponent<Old2PlayerStateMachine>();
-    //    _playerStateMachine.AddState("GroundState", new Old2GroundState(_playerStateMachine));
-    //    _playerStateMachine.AddState("JumpState", new Old2JumpState(_playerStateMachine));
-
-    //    _playerStateMachine.GotoState("GroundState");
-    //}
 }
 
 public interface IAvatar
@@ -68,27 +57,3 @@ public class Avatar : IAvatar
         }
     }
 }
-
-//public class OldPlayer : MonoBehaviour
-//{
-//    private OldStateMachine playerStateController;
-
-//    private void Start()
-//    {
-//        InitPlayerStateMachine();
-//    }
-
-//    private void InitPlayerStateMachine()
-//    {
-//        playerStateController = new OldStateMachine(gameObject);
-//        playerStateController.AddState("GroundState", new OldGroundState());
-//        playerStateController.AddState("JumpState", new OldJumpState());
-
-//        playerStateController.GotoState("GroundState");
-//    }
-
-//    public void Jump()
-//    {
-//        playerStateController.GotoState("JumpState");
-//    }
-//}

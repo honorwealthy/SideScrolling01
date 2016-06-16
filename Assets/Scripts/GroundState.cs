@@ -1,232 +1,144 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class PlayerStateBase : MonoBehaviour, IState<string>
 {
     public abstract string StateName { get; }
+    public float Speed = 5.0f;
 
     protected PlayerStateMachine _stateMachine;
     protected IAvatar _avatar;
     protected Transform _groundCheck;
 
-    public virtual void OnEnterState(IState<string> prevState) { }
+    public virtual void OnEnterState(IState<string> prevState)
+    {
+        enabled = true;
+    }
 
-    public virtual void OnLeaveState() { }
+    public virtual void OnLeaveState()
+    {
+        enabled = false;
+    }
 
     protected virtual void Awake()
     {
         _stateMachine = GetComponent<PlayerStateMachine>();
         _avatar = _stateMachine.Owner.Avatar;
         _groundCheck = _stateMachine.Owner.GroundCheck;
+        enabled = false;
     }
 
-    public virtual void CheckState() { }
+    protected virtual void FixedUpdate()
+    {
+        var direction = Input.GetAxisRaw("Horizontal");
+        var x = Mathf.Abs(Input.GetAxis("Horizontal"));
+        _avatar.rb2d.velocity = new Vector2(direction * x * Speed, _avatar.rb2d.velocity.y);
+
+        if (direction != 0)
+            _avatar.SetDirection(direction > 0);
+    }
+
+    protected virtual void Update() { }
+
+    protected virtual void LateUpdate() { }
 }
 
 public class GroundState : PlayerStateBase
 {
     public override string StateName { get { return "GroundState"; } }
-    public float Speed = 5.0f;
-
-    public override void OnEnterState(IState<string> prevState)
-    {
-        enabled = true;
-    }
 
     public override void OnLeaveState()
     {
+        base.OnLeaveState();
         _avatar.anim.SetFloat("GroundSpeed", 0);
-        enabled = false;
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        enabled = false;
-    }
-
-    private void Update()
+    protected override void Update()
     {
         if (Input.GetButtonDown("Jump"))
             _stateMachine.GotoState("JumpState");
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        var direction = Input.GetAxisRaw("Horizontal");
+        base.FixedUpdate();
         var x = Mathf.Abs(Input.GetAxis("Horizontal"));
         _avatar.anim.SetFloat("GroundSpeed", x);
-        _avatar.rb2d.velocity = new Vector2(direction * x * Speed, _avatar.rb2d.velocity.y);
-
-        if (direction != 0)
-            _avatar.SetDirection(direction > 0);
     }
 }
 
 public class JumpState : PlayerStateBase
 {
     public override string StateName { get { return "JumpState"; } }
-    public float Speed = 5.0f;
-    public float JumpForce = 1.0f;
+
+    [SerializeField]
+    private float JumpForce = 400.0f;
+
+    private float _prePressValue = 0.0f;
+
+    [SerializeField]
+    private float pressValue = 0.0f;
 
     public override void OnEnterState(IState<string> prevState)
     {
+        base.OnEnterState(prevState);
         _avatar.anim.SetTrigger("Jump");
-        enabled = true;
     }
 
     public override void OnLeaveState()
     {
-        enabled = false;
+        _prePressValue = 0.0f;
+        base.OnLeaveState();
     }
-
-    protected override void Awake()
+    
+    protected override void Update()
     {
-        base.Awake();
-        enabled = false;
+        pressValue = Input.GetAxis("Jump");
+        if (pressValue < float.Epsilon)
+        {
+            CheckJumpEnd();
+            return;
+        }
+
+        float deltaPressValue = (pressValue - _prePressValue);
+        if (deltaPressValue > float.Epsilon)
+        {
+            _prePressValue = pressValue;
+
+            float deltaForce = deltaPressValue * JumpForce;
+            _avatar.rb2d.AddForce(new Vector2(0, deltaForce));
+        }
+        else
+        {
+            CheckJumpEnd();
+        }
     }
 
-    private void FixedUpdate()
+    private void CheckJumpEnd()
     {
-        var direction = Input.GetAxisRaw("Horizontal");
-        var x = Mathf.Abs(Input.GetAxis("Horizontal"));
-        _avatar.rb2d.velocity = new Vector2(direction * x * Speed, _avatar.rb2d.velocity.y);
+        if (_avatar.rb2d.velocity.y < 0)
+            _stateMachine.GotoState("AirState");
+    }
+}
 
-        if (direction != 0)
-            _avatar.SetDirection(direction > 0);
+public class AirState : PlayerStateBase
+{
+    public override string StateName { get { return "AirState"; } }
 
-        var y = Mathf.Abs(Input.GetAxis("Jump"));
-        _avatar.rb2d.AddForce(new Vector2(0, JumpForce));
+    public override void OnEnterState(IState<string> prevState)
+    {
+        base.OnEnterState(prevState);
+        _avatar.anim.SetTrigger("FallBegin");
     }
 
-    public override void CheckState()
+    protected override void Update()
     {
         var grounded = Physics2D.Linecast(_groundCheck.position, _groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         if (grounded == true)
         {
             _stateMachine.GotoState("GroundState");
+            _avatar.anim.SetTrigger("Landing");
         }
     }
 }
-
-//public class Old2PlayerStateBase : OldIState
-//{
-//    public string StateName { get; protected set; }
-
-//    protected Old2PlayerStateMachine _stateMachine;
-//    protected BasePlayerController _controller;
-
-//    public virtual void OnEnterState(OldIState prevState) { }
-
-//    public virtual void OnLeaveState() { }
-
-//    public Old2PlayerStateBase(Old2PlayerStateMachine stateMachine)
-//    {
-//        _stateMachine = stateMachine;
-//    }
-//}
-
-//public class Old2GroundState : Old2PlayerStateBase
-//{
-//    public Old2GroundState(Old2PlayerStateMachine stateMachine)
-//        : base(stateMachine)
-//    {
-//        StateName = "GroundState";
-//        var controller = stateMachine.Owner.gameObject.AddComponent<GroundController>();
-//        controller.TheAvatar = stateMachine.Owner.Avatar;
-//        controller.State = this;
-//        controller.enabled = false;
-//        _controller = controller;
-//    }
-
-//    public override void OnEnterState(OldIState prevState)
-//    {
-//        _controller.enabled = true;
-//    }
-
-//    public override void OnLeaveState()
-//    {
-//        _controller.TheAvatar.anim.SetFloat("GroundSpeed", 0);
-//        _controller.enabled = false;
-//    }
-
-//    public void Jump()
-//    {
-//        _stateMachine.GotoState("JumpState");
-//    }
-//}
-
-//public class Old2JumpState : Old2PlayerStateBase
-//{
-//    public Old2JumpState(Old2PlayerStateMachine stateMachine)
-//        : base(stateMachine)
-//    {
-//        StateName = "JumpState";
-//        _controller = stateMachine.Owner.gameObject.AddComponent<JumpController>();
-//        _controller.TheAvatar = stateMachine.Owner.Avatar;
-//        _controller.enabled = false;
-//    }
-
-//    public override void OnEnterState(OldIState prevState)
-//    {
-//        _controller.TheAvatar.anim.SetTrigger("Jump");
-//        _controller.enabled = true;
-//    }
-
-//    public override void OnLeaveState()
-//    {
-//        _controller.enabled = false;
-//    }
-//}
-
-//public class OldGroundState : OldStateBase
-//{
-//    private OldGroundController groundController;
-
-//    public OldGroundState()
-//    {
-//        StateName = "GroundState";
-//    }
-
-//    public override void InitState()
-//    {
-//        groundController = _owner.AddComponent<OldGroundController>();
-//        groundController.enabled = false;
-//    }
-
-//    public override void OnEnterState(OldIState prevState)
-//    {
-//        groundController.enabled = true;
-//    }
-
-//    public override void OnLeaveState()
-//    {
-//        groundController.enabled = false;
-//    }
-//}
-
-//public class OldJumpState : OldStateBase
-//{
-//    private OldJumpController jumpController;
-
-//    public OldJumpState()
-//    {
-//        StateName = "JumpState";
-//    }
-
-//    public override void InitState()
-//    {
-//        jumpController = _owner.AddComponent<OldJumpController>();
-//        jumpController.enabled = false;
-//    }
-
-//    public override void OnEnterState(OldIState prevState)
-//    {
-//        jumpController.enabled = true;
-//    }
-
-//    public override void OnLeaveState()
-//    {
-//        jumpController.enabled = false;
-//    }
-//}
