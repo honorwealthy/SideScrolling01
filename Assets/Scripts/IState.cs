@@ -1,27 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IState
+public interface IState<TName>
 {
-    string StateName { get; }
+    TName StateName { get; }
 
-    void OnEnterState(IState prevState);
+    void OnEnterState(IState<TName> prevState);
     void OnLeaveState();
 }
 
-public class StateBase : IState
-{
-    public string StateName { get; protected set; }
-    protected GameObject _owner;
+//public interface OldIState
+//{
+//    string StateName { get; }
 
-    public virtual void OnEnterState(IState prevState) { }
+//    void OnEnterState(OldIState prevState);
+//    void OnLeaveState();
+//}
 
-    public virtual void OnLeaveState() { }
+//public class OldStateBase : OldIState
+//{
+//    public string StateName { get; protected set; }
+//    protected GameObject _owner;
 
-    public void SetOwner(GameObject owner)
-    {
-        _owner = owner;
-    }
+//    public virtual void OnEnterState(OldIState prevState) { }
 
-    public virtual void InitState() { }
-}
+//    public virtual void OnLeaveState() { }
+
+//    public void SetOwner(GameObject owner)
+//    {
+//        _owner = owner;
+//    }
+
+//    public virtual void InitState() { }
+//}
