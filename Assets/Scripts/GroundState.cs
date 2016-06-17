@@ -73,7 +73,7 @@ public class JumpState : PlayerStateBase
     public override string StateName { get { return "JumpState"; } }
 
     [SerializeField]
-    private float JumpForce = 400.0f;
+    private float JumpVelocity = 18.0f;
 
     private float _prePressValue = 0.0f;
 
@@ -84,6 +84,7 @@ public class JumpState : PlayerStateBase
     {
         base.OnEnterState(prevState);
         _avatar.anim.SetTrigger("Jump");
+        _avatar.rb2d.velocity = new Vector2(_avatar.rb2d.velocity.x, JumpVelocity);
     }
 
     public override void OnLeaveState()
@@ -91,28 +92,20 @@ public class JumpState : PlayerStateBase
         _prePressValue = 0.0f;
         base.OnLeaveState();
     }
-    
+
     protected override void Update()
     {
         pressValue = Input.GetAxis("Jump");
-        if (pressValue < float.Epsilon)
+        float deltaPressValue = (pressValue - _prePressValue);
+        _prePressValue = pressValue;
+        if (deltaPressValue < 0.0f)
         {
-            CheckJumpEnd();
+            _avatar.rb2d.velocity = new Vector2(_avatar.rb2d.velocity.x, 0);
+            _stateMachine.GotoState("AirState");
             return;
         }
 
-        float deltaPressValue = (pressValue - _prePressValue);
-        if (deltaPressValue > float.Epsilon)
-        {
-            _prePressValue = pressValue;
-
-            float deltaForce = deltaPressValue * JumpForce;
-            _avatar.rb2d.AddForce(new Vector2(0, deltaForce));
-        }
-        else
-        {
-            CheckJumpEnd();
-        }
+        CheckJumpEnd();
     }
 
     private void CheckJumpEnd()
