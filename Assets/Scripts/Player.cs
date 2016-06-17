@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public Transform GroundCheck;
+    public Transform GroundCheckLeft;
+    public Transform GroundCheckRight;
     public IAvatar Avatar { get; private set; }
     public float Speed = 5f;
 
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
     public string currentname = "";
     private void Update()
     {
-        currentname = _playerStateMachine._stateMachine.CurrentState.StateName;
+        currentname = _playerStateMachine.CurrentStateName;
     }
 }
 
