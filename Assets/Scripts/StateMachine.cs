@@ -37,7 +37,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     public Player Owner { get; private set; }
 
-    private StateMachine<string, PlayerStateBase> _stateMachine;
+    public StateMachine<string, PlayerStateBase> _stateMachine;
 
     public void GotoState(string statename)
     {

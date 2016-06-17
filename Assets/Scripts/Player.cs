@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public Transform GroundCheck;
     public IAvatar Avatar { get; private set; }
+    public float Speed = 5f;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -26,6 +27,12 @@ public class Player : MonoBehaviour
     private void InitPlayerStateMachine()
     {
         _playerStateMachine = gameObject.AddComponent<PlayerStateMachine>();
+    }
+
+    public string currentname = "";
+    private void Update()
+    {
+        currentname = _playerStateMachine._stateMachine.CurrentState.StateName;
     }
 }
 
