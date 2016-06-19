@@ -178,7 +178,10 @@ public class AirState : PlayerStateBase
         var grounded = CheckGrounded();
         if (grounded == true)
         {
-            _stateMachine.GotoState("GroundState");
+            if (Input.GetButtonDown("Attack"))
+                _stateMachine.GotoState("GroundAttackState");
+            else
+                _stateMachine.GotoState("GroundState");
         }
     }
 }
