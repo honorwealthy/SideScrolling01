@@ -2,9 +2,9 @@
 using System.Collections;
 using System;
 
-public abstract class PlayerStateBase : IState<string>
+public class PlayerStateBase : IState<string>
 {
-    public abstract string StateName { get; }
+    public string StateName { get { return this.GetType().Name; } }
 
     protected PlayerStateMachine _stateMachine;
     protected Player _player;
@@ -50,8 +50,6 @@ public abstract class PlayerStateBase : IState<string>
 
 public class GroundState : PlayerStateBase
 {
-    public override string StateName { get { return "GroundState"; } }
-
     public GroundState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void OnLeaveState()
@@ -66,8 +64,17 @@ public class GroundState : PlayerStateBase
         {
             _stateMachine.GotoState("AirState");
         }
-        else if (Input.GetButtonDown("Jump"))
-            _stateMachine.GotoState("JumpState");
+        else
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                _stateMachine.GotoState("JumpState");
+            }
+            else if (Input.GetButtonDown("Attack"))
+            {
+                _stateMachine.GotoState("GroundAttackState");
+            }
+        }
     }
 
     public override void FixedUpdate()
@@ -78,10 +85,45 @@ public class GroundState : PlayerStateBase
     }
 }
 
+public class GroundAttackState : PlayerStateBase
+{
+    public GroundAttackState(PlayerStateMachine stateMachine) : base(stateMachine)
+    {
+        _avatar.OnAnimationEvent += OnAnimationEvent;
+    }
+
+    public void OnAnimationEvent(string eventName)
+    {
+        if (eventName == "ZeroMeleeAttackEndOver")
+            _stateMachine.GotoState("GroundState");
+    }
+
+    public override void OnEnterState(IState<string> prevState)
+    {
+        _avatar.anim.SetTrigger("Attack");
+    }
+
+    public override void Update()
+    {
+        var grounded = CheckGrounded();
+        if (grounded == false)
+        {
+            _stateMachine.GotoState("AirState");
+        }
+        else
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                _stateMachine.GotoState("JumpState");
+            }
+        }
+    }
+
+    public override void FixedUpdate() { }
+}
+
 public class JumpState : PlayerStateBase
 {
-    public override string StateName { get { return "JumpState"; } }
-
     [SerializeField]
     private float JumpVelocity = 18.0f;
 
@@ -124,8 +166,6 @@ public class JumpState : PlayerStateBase
 
 public class AirState : PlayerStateBase
 {
-    public override string StateName { get { return "AirState"; } }
-
     public AirState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
     public override void OnEnterState(IState<string> prevState)
