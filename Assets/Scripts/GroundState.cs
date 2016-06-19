@@ -124,9 +124,6 @@ public class GroundAttackState : PlayerStateBase
 
 public class JumpState : PlayerStateBase
 {
-    [SerializeField]
-    private float JumpVelocity = 18.0f;
-
     private float _prePressValue = 0.0f;
 
     public JumpState(PlayerStateMachine stateMachine) : base(stateMachine) { }
@@ -135,7 +132,7 @@ public class JumpState : PlayerStateBase
     {
         _avatar.anim.SetTrigger("Jump");
         _avatar.anim.SetBool("IsGrounded", false);
-        _avatar.rb2d.velocity = new Vector2(_avatar.rb2d.velocity.x, JumpVelocity);
+        _avatar.rb2d.velocity = new Vector2(_avatar.rb2d.velocity.x, _player.JumpVelocity);
     }
 
     public override void OnLeaveState()

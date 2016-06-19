@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
     public Transform GroundCheckLeft;
     public Transform GroundCheckRight;
     public IAvatar Avatar { get; private set; }
-    public float Speed = 5f;
+    public float Speed = 9f;
+    public float JumpVelocity = 28f;
 
     private PlayerStateMachine _playerStateMachine;
 
