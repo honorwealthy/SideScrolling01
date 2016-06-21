@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SeafoodEditorHelper
 {
@@ -17,10 +18,12 @@ namespace SeafoodEditorHelper
 
         public void BuildBasic()
         {
-            var obj = MountainPartBuilder.BuildPartByType(gameObject, MountainPartType.LeftTop);
-            obj.BuildNeighbor(MountainNeighborType.Right, MountainPartType.RightTop);
-            var obj2 = obj.BuildNeighbor(MountainNeighborType.Down, MountainPartType.LeftBottom);
-            obj2.BuildNeighbor(MountainNeighborType.Right, MountainPartType.RightBottom);
+            gameObject.layer = LayerMask.NameToLayer("Ground");
+
+            var obj = gameObject.BuildMountainPartByType(MountainPartType.LeftTop);
+            obj.BuildMountainNeighbor(MountainNeighborType.Right, MountainPartType.RightTop);
+            var obj2 = obj.BuildMountainNeighbor(MountainNeighborType.Down, MountainPartType.LeftBottom);
+            obj2.BuildMountainNeighbor(MountainNeighborType.Right, MountainPartType.RightBottom);
         }
 
         public Sprite GetSpriteByType(MountainPartType type)
@@ -58,6 +61,18 @@ namespace SeafoodEditorHelper
             }
             return sprite;
         }
+
+        public void BuildCollider()
+        {
+            if (transform.childCount > 0)
+            {
+                foreach (Transform child in transform)
+                {
+                    var partBuilder = child.GetComponent<MountainPartBuilder>();
+                    partBuilder.BuildCollider();
+                }
+            }
+        }
     }
 
     public enum MountainPartType
@@ -83,17 +98,21 @@ namespace SeafoodEditorHelper
 
     public class MountainPartBuilder : MonoBehaviour
     {
-        [SerializeField]
-        public MountainPartType type { get; set; }
+        public MountainPartType type;
+
+        //private float ColliderHeight { get { return 0.3f; } }
+        //private float ColliderWidth { get { return 0.8f; } }
 
         public static GameObject BuildPartByType(GameObject parent, MountainPartType type)
         {
             MountainBuilder builder = parent.GetComponent<MountainBuilder>();
 
-            var obj = new GameObject("Mountain");
+            var obj = new GameObject();
+            obj.layer = LayerMask.NameToLayer("Ground");
             obj.AddComponent<SpriteRenderer>().sprite = builder.GetSpriteByType(type);
             obj.transform.SetParent(parent.transform);
             obj.transform.localPosition = new Vector3();
+            obj.transform.localScale = Vector3.one;
 
             obj.AddComponent<MountainPartBuilder>().type = type;
             return obj;
@@ -102,7 +121,8 @@ namespace SeafoodEditorHelper
         public GameObject BuildNeighbor(MountainNeighborType neighbor, MountainPartType part)
         {
             MountainBuilder builder = gameObject.transform.parent.GetComponent<MountainBuilder>();
-            GameObject obj = new GameObject("Mountain");
+            GameObject obj = new GameObject();
+            obj.layer = LayerMask.NameToLayer("Ground");
 
             Sprite otherSprite = builder.GetSpriteByType(part);
             obj.AddComponent<SpriteRenderer>().sprite = otherSprite;
@@ -129,14 +149,118 @@ namespace SeafoodEditorHelper
             }
 
             obj.transform.localPosition = otherLocalPosition;
-            var partBuilder = obj.AddComponent<MountainPartBuilder>().type = part;
+            obj.transform.localScale = Vector3.one;
+            obj.AddComponent<MountainPartBuilder>().type = part;
             return obj;
+        }
+
+        public void BuildCollider()
+        {
+            var collider = gameObject.GetComponent<Collider2D>();
+
+            if (collider != null)
+                DestroyImmediate(collider);
+
+            var bounds = gameObject.GetComponent<SpriteRenderer>().sprite.bounds;
+            //if (type == MountainPartType.CenterTop)
+            //{
+            //    var cdr = gameObject.AddComponent<BoxCollider2D>();
+            //    cdr.size = new Vector2(bounds.size.x, bounds.size.y * ColliderHeight);
+            //    cdr.offset = new Vector2(0, 0);
+            //}
+            //else if (type == MountainPartType.LeftTop)
+            //{
+            //    var cdr = gameObject.AddComponent<BoxCollider2D>();
+            //    cdr.size = new Vector2(bounds.size.x * ColliderWidth, bounds.size.y * ColliderHeight);
+            //    cdr.offset = new Vector2(bounds.size.x * (1 - ColliderWidth) / 2f, 0);
+            //}
+            //else if (type == MountainPartType.RightTop)
+            //{
+            //    var cdr = gameObject.AddComponent<BoxCollider2D>();
+            //    cdr.size = new Vector2(bounds.size.x * ColliderWidth, bounds.size.y * ColliderHeight);
+            //    cdr.offset = new Vector2(-bounds.size.x * (1 - ColliderWidth) / 2f, 0);
+            //}
+            if (type == MountainPartType.CenterTop)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x, bounds.size.y * 0.6f);
+                cdr.offset = new Vector2(0, -bounds.size.y * 0.2f);
+            }
+            else if (type == MountainPartType.LeftTop)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.6f);
+                cdr.offset = new Vector2(bounds.size.x * 0.1f, -bounds.size.y * 0.2f);
+            }
+            else if (type == MountainPartType.RightTop)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.6f);
+                cdr.offset = new Vector2(-bounds.size.x * 0.1f, -bounds.size.y * 0.2f);
+            }
+            else if (type == MountainPartType.LeftMiddle)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y);
+                cdr.offset = new Vector2(bounds.size.x * 0.1f, 0);
+            }
+            else if (type == MountainPartType.LeftBottom)
+            {
+                var cdr = gameObject.AddComponent<PolygonCollider2D>();
+                cdr.SetPath(0, new Vector2[] {
+                    new Vector2(bounds.min.x * 0.6f, bounds.max.y),
+                    new Vector2(bounds.max.x, bounds.max.y),
+                    new Vector2(bounds.max.x, bounds.min.y)
+                });
+            }
+            else if (type == MountainPartType.RightMiddle)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y);
+                cdr.offset = new Vector2(-bounds.size.x * 0.1f, 0);
+            }
+            else if (type == MountainPartType.RightBottom)
+            {
+                var cdr = gameObject.AddComponent<PolygonCollider2D>();
+                cdr.SetPath(0, new Vector2[] {
+                    new Vector2(bounds.max.x * 0.6f, bounds.max.y),
+                    new Vector2(bounds.min.x, bounds.max.y),
+                    new Vector2(bounds.min.x, bounds.min.y)
+                });
+            }
+            else if (type == MountainPartType.CenterMiddle)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x, bounds.size.y);
+                cdr.offset = new Vector2(0, 0);
+            }
+            else if (type == MountainPartType.CenterBottom)
+            {
+                var cdr = gameObject.AddComponent<BoxCollider2D>();
+                cdr.size = new Vector2(bounds.size.x, bounds.size.y);
+                cdr.offset = new Vector2(0, 0);
+            }
         }
     }
 
+    //public class MountainPartColliderHelper
+    //{
+    //    public void GenerateCollider(GameObject gameObject, Bounds bounds)
+    //    {
+    //        var cdr = gameObject.AddComponent<BoxCollider2D>();
+    //        cdr.size = new Vector2(bounds.size.x, bounds.size.y * 0.3f);
+    //        cdr.offset = new Vector2(0, 0);
+    //    }
+    //}
+
     public static class MountainPartBuilderHelper
     {
-        public static GameObject BuildNeighbor(this GameObject parent, MountainNeighborType neighbor, MountainPartType part)
+        public static GameObject BuildMountainPartByType(this GameObject parent, MountainPartType type)
+        {
+            return MountainPartBuilder.BuildPartByType(parent, type);
+        }
+
+        public static GameObject BuildMountainNeighbor(this GameObject parent, MountainNeighborType neighbor, MountainPartType part)
         {
             var partBuilder = parent.GetComponent<MountainPartBuilder>();
             return partBuilder.BuildNeighbor(neighbor, part);
