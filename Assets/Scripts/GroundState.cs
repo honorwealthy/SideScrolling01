@@ -119,7 +119,10 @@ public class GroundAttackState : PlayerStateBase
         }
     }
 
-    public override void FixedUpdate() { }
+    public override void FixedUpdate()
+    {
+        //do nothing
+    }
 }
 
 public class JumpState : PlayerStateBase

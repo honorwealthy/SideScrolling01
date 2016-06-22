@@ -183,20 +183,20 @@ namespace SeafoodEditorHelper
             if (type == MountainPartType.CenterTop)
             {
                 var cdr = gameObject.AddComponent<BoxCollider2D>();
-                cdr.size = new Vector2(bounds.size.x, bounds.size.y * 0.6f);
-                cdr.offset = new Vector2(0, -bounds.size.y * 0.2f);
+                cdr.size = new Vector2(bounds.size.x, bounds.size.y * 0.7f);
+                cdr.offset = new Vector2(0, -bounds.size.y * 0.15f);
             }
             else if (type == MountainPartType.LeftTop)
             {
                 var cdr = gameObject.AddComponent<BoxCollider2D>();
-                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.6f);
-                cdr.offset = new Vector2(bounds.size.x * 0.1f, -bounds.size.y * 0.2f);
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.7f);
+                cdr.offset = new Vector2(bounds.size.x * 0.1f, -bounds.size.y * 0.15f);
             }
             else if (type == MountainPartType.RightTop)
             {
                 var cdr = gameObject.AddComponent<BoxCollider2D>();
-                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.6f);
-                cdr.offset = new Vector2(-bounds.size.x * 0.1f, -bounds.size.y * 0.2f);
+                cdr.size = new Vector2(bounds.size.x * 0.8f, bounds.size.y * 0.7f);
+                cdr.offset = new Vector2(-bounds.size.x * 0.1f, -bounds.size.y * 0.15f);
             }
             else if (type == MountainPartType.LeftMiddle)
             {
@@ -242,16 +242,6 @@ namespace SeafoodEditorHelper
             }
         }
     }
-
-    //public class MountainPartColliderHelper
-    //{
-    //    public void GenerateCollider(GameObject gameObject, Bounds bounds)
-    //    {
-    //        var cdr = gameObject.AddComponent<BoxCollider2D>();
-    //        cdr.size = new Vector2(bounds.size.x, bounds.size.y * 0.3f);
-    //        cdr.offset = new Vector2(0, 0);
-    //    }
-    //}
 
     public static class MountainPartBuilderHelper
     {
