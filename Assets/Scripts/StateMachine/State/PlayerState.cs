@@ -121,7 +121,7 @@ public class GroundAttackState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        //do nothing
+        //cant move
     }
 }
 

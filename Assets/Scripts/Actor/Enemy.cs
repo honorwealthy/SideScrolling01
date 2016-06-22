@@ -1,69 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Actor
 {
-    public IAvatar Avatar { get; private set; }
-    private string state = "up";
-    private bool flag = false;
-    private bool isRight = true;
+    public float Direction { get; set; }
 
-    private void Awake()
+    protected override void InitStateController()
     {
-        this.Avatar = GetComponent<Avatar>();
+        base.InitStateController();
+        _stateController.AddState(new SpikyRollingState(_stateController));
+        _stateController.AddState(new SpikyLaydownState(_stateController));
+        _stateController.AddState(new SpikySlidingState(_stateController));
+        _stateController.AddState(new SpikyRiseupState(_stateController));
     }
 
     private void Start()
     {
-        StartCoroutine(Dice());
+        _stateController.InitState("SpikyRollingState");
+        Direction = 1f;
     }
-
-    private void FixedUpdate()
-    {
-        if (flag)
-        {
-            StartCoroutine(Dice());
-            flag = false;
-            if (Random.Range(0, 5) < 1)
-                UpDown();
-        }
-
-        var speed = 5;
-        var direction = isRight ? 1 : -1;
-        Avatar.rb2d.velocity = new Vector2(direction * speed, Avatar.rb2d.velocity.y);
-
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("edge"))
         {
-            isRight = !isRight;
-            Avatar.SetDirection(isRight);
+            Direction *= -1;
+            if (_stateController.CurrentStateName == "SpikyRollingState")
+                _stateController.GotoState("SpikyLaydownState");
+            else if (_stateController.CurrentStateName == "SpikySlidingState")
+                _stateController.GotoState("SpikyRiseupState");
         }
     }
 
-    private IEnumerator Dice()
-    {
-        yield return new WaitForSeconds(1);
-        flag = true;
-    }
-
-    private void UpDown()
-    {
-        if (state == "up")
-        {
-            Avatar.anim.SetTrigger("Laydown");
-            state = "down";
-        }
-        else if (state == "down")
-        {
-            Avatar.anim.SetTrigger("Riseup");
-            state = "up";
-        }
-    }
-
-    public void Hurt(int damage)
+    public override void Hurt(int damage)
     {
         Destroy(gameObject, 0.1f);
     }

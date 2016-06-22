@@ -8,6 +8,7 @@ public class Avatar : MonoBehaviour, IAvatar
     public Rigidbody2D rb2d { get; set; }
     public event Action<string> OnAnimationEvent;
 
+    [SerializeField]
     protected bool _facingRight = true;
 
     private void Awake()
