@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : Actor
+public class Spiky : Actor
 {
     public float Direction { get; set; }
 

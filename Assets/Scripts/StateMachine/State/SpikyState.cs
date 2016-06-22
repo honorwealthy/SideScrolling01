@@ -2,18 +2,18 @@
 using System.Collections;
 using System;
 
-public class EnemyStateBase : ActorState
+public class SpikyStateBase : ActorState
 {
     public override string StateName { get { return this.GetType().Name; } }
 
     protected ActorStateController _stateMachine;
-    protected Enemy _enemy;
+    protected Spiky _enemy;
     protected IAvatar _avatar;
 
-    public EnemyStateBase(ActorStateController stateMachine)
+    public SpikyStateBase(ActorStateController stateMachine)
     {
         _stateMachine = stateMachine;
-        _enemy = _stateMachine.Owner as Enemy;
+        _enemy = _stateMachine.Owner as Spiky;
         _avatar = _enemy.Avatar;
     }
 
@@ -28,17 +28,17 @@ public class EnemyStateBase : ActorState
     }
 }
 
-public class SpikyRollingState : EnemyStateBase
+public class SpikyRollingState : SpikyStateBase
 {
     public SpikyRollingState(ActorStateController stateMachine) : base(stateMachine) { }
 }
 
-public class SpikySlidingState : EnemyStateBase
+public class SpikySlidingState : SpikyStateBase
 {
     public SpikySlidingState(ActorStateController stateMachine) : base(stateMachine) { }
 }
 
-public class SpikyLaydownState : EnemyStateBase
+public class SpikyLaydownState : SpikyStateBase
 {
     public override void OnEnterState(IState<string> prevState)
     {
@@ -62,7 +62,7 @@ public class SpikyLaydownState : EnemyStateBase
     }
 }
 
-public class SpikyRiseupState : EnemyStateBase
+public class SpikyRiseupState : SpikyStateBase
 {
     public override void OnEnterState(IState<string> prevState)
     {
