@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public IAvatar Avatar { get; private set; }
     public float Speed = 9f;
     public float JumpVelocity = 28f;
+    public bool HurtFromRight = true;
 
     private PlayerStateMachine _playerStateMachine;
 
@@ -22,4 +23,12 @@ public class Player : MonoBehaviour
     {
         currentname = _playerStateMachine.CurrentStateName;
     }
+
+    public void Hurt(int damage, bool fromRight)
+    {
+        _playerStateMachine.GotoState("HurtState");
+        HurtFromRight = fromRight;
+    }
+
+
 }

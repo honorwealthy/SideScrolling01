@@ -4,23 +4,12 @@ using System;
 
 public class MettoolStateBase : ActorState
 {
-    public override string StateName { get { return this.GetType().Name; } }
-
-    protected ActorStateController _stateMachine;
-    protected Mettool _enemy;
-    protected IAvatar _avatar;
-
-    public MettoolStateBase(ActorStateController stateMachine)
-    {
-        _stateMachine = stateMachine;
-        _enemy = _stateMachine.Owner as Mettool;
-        _avatar = _enemy.Avatar;
-    }
+    public MettoolStateBase(ActorStateController stateMachine) : base(stateMachine) { }
 
     public override void FixedUpdate()
     {
-        var direction = _enemy.Direction;
-        var speed = _enemy.Speed;
+        var direction = ((Mettool)_entity).Direction;
+        var speed = _entity.Speed;
         _avatar.rb2d.velocity = new Vector2(direction * speed, _avatar.rb2d.velocity.y);
 
         if (direction != 0)
@@ -36,9 +25,29 @@ public class MettoolMoveState : MettoolStateBase
 public class MettoolHideState : MettoolStateBase
 {
     public MettoolHideState(ActorStateController stateMachine) : base(stateMachine) { }
+
+    public override void OnEnterState(IState prevState)
+    {
+        //_avatar.anim.SetTrigger("Laydown");
+    }
+
+    public override void FixedUpdate()
+    {
+        //cant move
+    }
 }
 
 public class MettoolShootState : MettoolStateBase
 {
     public MettoolShootState(ActorStateController stateMachine) : base(stateMachine) { }
+
+    public override void OnEnterState(IState prevState)
+    {
+        //_avatar.anim.SetTrigger("Laydown");
+    }
+
+    public override void FixedUpdate()
+    {
+        //cant move
+    }
 }

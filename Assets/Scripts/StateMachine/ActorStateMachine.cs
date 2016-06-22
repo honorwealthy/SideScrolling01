@@ -5,14 +5,14 @@ public class ActorStateController
 {
     public Actor Owner { get; private set; }
 
-    private StateMachine<string, ActorState> _stateMachine;
+    private StateMachine<ActorState> _stateMachine;
 
     public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
     public ActorStateController(Actor owner)
     {
         Owner = owner;
-        _stateMachine = new StateMachine<string, ActorState>();
+        _stateMachine = new StateMachine<ActorState>();
     }
 
     public void InitState(string statename)

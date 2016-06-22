@@ -2,11 +2,22 @@
 using System.Collections;
 using System;
 
-public abstract class ActorState : IState<string>
+public abstract class ActorState : IState
 {
-    public abstract string StateName { get; }
+    public string StateName { get { return this.GetType().Name; } }
 
-    public virtual void OnEnterState(IState<string> prevState) { }
+    protected ActorStateController _stateMachine;
+    protected Actor _entity;
+    protected IAvatar _avatar;
+
+    public ActorState(ActorStateController stateMachine)
+    {
+        _stateMachine = stateMachine;
+        _entity = _stateMachine.Owner;
+        _avatar = _entity.Avatar;
+    }
+
+    public virtual void OnEnterState(IState prevState) { }
     public virtual void OnLeaveState() { }
 
     public virtual void FixedUpdate() { }

@@ -185,3 +185,47 @@ public class AirState : PlayerStateBase
         }
     }
 }
+
+public class HurtState : PlayerStateBase
+{
+    public HurtState(PlayerStateMachine stateMachine) : base(stateMachine)
+    {
+        _avatar.OnAnimationEvent += OnAnimationEvent;
+    }
+
+    public void OnAnimationEvent(string eventName)
+    {
+        if (eventName == "ZeroHurtOver")
+        {
+            var grounded = CheckGrounded();
+            if (grounded == false)
+            {
+                _stateMachine.GotoState("AirState");
+            }
+            else
+            {
+                _stateMachine.GotoState("GroundState");
+            }
+        }
+    }
+
+    public override void OnEnterState(IState<string> prevState)
+    {
+        //_avatar.anim.SetTrigger("FallBegin");
+        _player.StartCoroutine(Recover());
+        _avatar.SetDirection(_player.HurtFromRight);
+        var direction = _player.HurtFromRight ? -1 : 1;
+        _avatar.rb2d.velocity = new Vector2(direction * 10, 15);
+    }
+
+    private IEnumerator Recover()
+    {
+        yield return new WaitForSeconds(0.5f);
+        OnAnimationEvent("ZeroHurtOver");
+    }
+
+    public override void FixedUpdate()
+    {
+        // cant move
+    }
+}

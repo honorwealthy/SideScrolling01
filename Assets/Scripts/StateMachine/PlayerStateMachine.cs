@@ -33,6 +33,7 @@ public class PlayerStateMachine : MonoBehaviour
         AddState(new JumpState(this));
         AddState(new AirState(this));
         AddState(new GroundAttackState(this));
+        AddState(new HurtState(this));
     }
 
     private void AddState(PlayerStateBase state)
