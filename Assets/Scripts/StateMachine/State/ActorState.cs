@@ -6,16 +6,18 @@ public abstract class ActorState : IState
 {
     public string StateName { get { return this.GetType().Name; } }
 
-    protected ActorStateController _stateMachine;
     protected Actor _entity;
-    protected IAvatar _avatar;
+    protected ActorStateController _stateMachine;
+    protected Avatar _avatar;
+    protected Behaviour _behaviour;
 
-    public ActorState(ActorStateController stateMachine)
+    public virtual void InitState(Actor entity)
     {
-        _stateMachine = stateMachine;
-        _entity = _stateMachine.Owner;
-        _avatar = _entity.Avatar;
+        _entity = entity;
+        _stateMachine = entity.gameObject.GetComponent<ActorStateController>();
+        _avatar = entity.gameObject.GetComponent<Avatar>();
         _avatar.OnAnimationEvent += OnAnimationEvent;
+        _behaviour = entity.gameObject.GetComponent<Behaviour>();
     }
 
     public virtual void OnEnterState(IState prevState) { }

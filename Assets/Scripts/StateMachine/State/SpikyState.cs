@@ -4,8 +4,6 @@ using System;
 
 public class SpikyStateBase : ActorState
 {
-    public SpikyStateBase(ActorStateController stateMachine) : base(stateMachine) { }
-
     public override void FixedUpdate()
     {
         var direction = ((Spiky)_entity).Direction;
@@ -19,12 +17,10 @@ public class SpikyStateBase : ActorState
 
 public class SpikyRollingState : SpikyStateBase
 {
-    public SpikyRollingState(ActorStateController stateMachine) : base(stateMachine) { }
 }
 
 public class SpikySlidingState : SpikyStateBase
 {
-    public SpikySlidingState(ActorStateController stateMachine) : base(stateMachine) { }
 }
 
 public class SpikyLaydownState : SpikyStateBase
@@ -33,8 +29,6 @@ public class SpikyLaydownState : SpikyStateBase
     {
         _avatar.anim.SetTrigger("Laydown");
     }
-
-    public SpikyLaydownState(ActorStateController stateMachine) : base(stateMachine) { }
 
     public override void OnAnimationEvent(string eventName)
     {
@@ -54,8 +48,6 @@ public class SpikyRiseupState : SpikyStateBase
     {
         _avatar.anim.SetTrigger("Riseup");
     }
-
-    public SpikyRiseupState(ActorStateController stateMachine) : base(stateMachine) { }
 
     public override void OnAnimationEvent(string eventName)
     {

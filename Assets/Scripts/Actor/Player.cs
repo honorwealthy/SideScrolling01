@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     public void Hurt(int damage, bool fromRight)
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Entity"))
+        if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             _playerControlStateMachine.GotoState("HurtState");
             HurtFromRight = fromRight;
@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
     
     private IEnumerator Immortal()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Entity");
+        gameObject.layer = LayerMask.NameToLayer("Ignore Enemy");
         yield return new WaitForSeconds(ImmortalDuration);
-        gameObject.layer = LayerMask.NameToLayer("Entity");
+        gameObject.layer = LayerMask.NameToLayer("Player");
     }
 }

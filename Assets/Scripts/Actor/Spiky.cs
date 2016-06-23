@@ -8,10 +8,10 @@ public class Spiky : Actor
     protected override void InitStateController()
     {
         base.InitStateController();
-        _stateController.AddState(new SpikyRollingState(_stateController));
-        _stateController.AddState(new SpikyLaydownState(_stateController));
-        _stateController.AddState(new SpikySlidingState(_stateController));
-        _stateController.AddState(new SpikyRiseupState(_stateController));
+        _stateController.AddState(new SpikyRollingState());
+        _stateController.AddState(new SpikyLaydownState());
+        _stateController.AddState(new SpikySlidingState());
+        _stateController.AddState(new SpikyRiseupState());
     }
 
     private void Start()

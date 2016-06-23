@@ -3,21 +3,23 @@ using System.Collections;
 
 public abstract class Actor : MonoBehaviour
 {
-    public IAvatar Avatar { get; protected set; }
     public float Speed = 9f;
     public float JumpVelocity = 28f;
 
+    protected Avatar _avatar;
     protected ActorStateController _stateController;
+    protected Behaviour _behaviour;
 
     protected virtual void Awake()
     {
-        Avatar = GetComponent<Avatar>();
+        _avatar = GetComponent<Avatar>();
         InitStateController();
+        _behaviour = gameObject.GetComponent<Behaviour>();
     }
 
     protected virtual void InitStateController()
     {
-        _stateController = new ActorStateController(this);
+        _stateController = gameObject.AddComponent<ActorStateController>();
     }
 
     public virtual void Hurt(int damage) { }
@@ -30,20 +32,5 @@ public abstract class Actor : MonoBehaviour
             c.isTrigger = true;
         }
         Destroy(gameObject, 0.1f);
-    }
-
-    public virtual void FixedUpdate()
-    {
-        _stateController.FixedUpdate();
-    }
-
-    public virtual void Update()
-    {
-        _stateController.Update();
-    }
-
-    public virtual void LateUpdate()
-    {
-        _stateController.LateUpdate();
     }
 }

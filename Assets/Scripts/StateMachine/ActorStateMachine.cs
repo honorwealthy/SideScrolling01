@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorStateController
+public class ActorStateController : MonoBehaviour
 {
-    public Actor Owner { get; private set; }
-
     private StateMachine<ActorState> _stateMachine;
 
     public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
-    public ActorStateController(Actor owner)
+    private void Awake()
     {
-        Owner = owner;
         _stateMachine = new StateMachine<ActorState>();
     }
 
@@ -22,7 +19,7 @@ public class ActorStateController
 
     public void GotoState(string statename)
     {
-        Owner.StartCoroutine(GotoStateNextFrame(statename));
+        StartCoroutine(GotoStateNextFrame(statename));
     }
 
     private IEnumerator GotoStateNextFrame(string statename)
@@ -34,19 +31,20 @@ public class ActorStateController
     public void AddState(ActorState state)
     {
         _stateMachine.AddState(state.StateName, state);
+        state.InitState(gameObject.GetComponent<Actor>());
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
         _stateMachine.CurrentState.FixedUpdate();
     }
 
-    public void Update()
+    private void Update()
     {
         _stateMachine.CurrentState.Update();
     }
 
-    public void LateUpdate()
+    private void LateUpdate()
     {
         _stateMachine.CurrentState.LateUpdate();
     }

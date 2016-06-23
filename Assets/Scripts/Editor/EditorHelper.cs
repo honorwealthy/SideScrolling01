@@ -4,21 +4,21 @@ using UnityEditor;
 using SeafoodEditorHelper;
 using System;
 
-[CustomEditor(typeof(PlayerStateMachine))]
-public class PlayerStateMachineEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+//[CustomEditor(typeof(PlayerStateMachine))]
+//public class PlayerStateMachineEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        DrawDefaultInspector();
 
-        PlayerStateMachine myScript = (PlayerStateMachine)target;
-        if (GUILayout.Button("Reset StateMachine"))
-        {
-            myScript.GotoState("GroundState");
-            EditorGUIUtility.ExitGUI();
-        }
-    }
-}
+//        PlayerStateMachine myScript = (PlayerStateMachine)target;
+//        if (GUILayout.Button("Reset StateMachine"))
+//        {
+//            myScript.GotoState("GroundState");
+//            EditorGUIUtility.ExitGUI();
+//        }
+//    }
+//}
 
 [CustomEditor(typeof(MountainBuilder))]
 public class MountainBuilderEditor : Editor
@@ -70,35 +70,35 @@ public class MountainPartBuilderEditor : Editor
     }
 }
 
-[CustomEditor(typeof(Mettool))]
-public class MettoolEditor : Editor
-{
-    static int selectedNeighbor = 0;
-    static int selectedpart = 0;
+//[CustomEditor(typeof(Mettool))]
+//public class MettoolEditor : Editor
+//{
+//    static int selectedNeighbor = 0;
+//    static int selectedpart = 0;
 
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+//    public override void OnInspectorGUI()
+//    {
+//        DrawDefaultInspector();
 
-        GUILayout.Box("", new GUILayoutOption[] { GUILayout.ExpandWidth(true), GUILayout.Height(1) });
+//        GUILayout.Box("", new GUILayoutOption[] { GUILayout.ExpandWidth(true), GUILayout.Height(1) });
         
-        if (GUILayout.Button("Shoot"))
-        {
-            Mettool myScript = (Mettool)target;
-            myScript.Shoot();
-            EditorGUIUtility.ExitGUI();
-        }
-        if (GUILayout.Button("Hide"))
-        {
-            Mettool myScript = (Mettool)target;
-            myScript.Hide();
-            EditorGUIUtility.ExitGUI();
-        }
-        if (GUILayout.Button("Move"))
-        {
-            Mettool myScript = (Mettool)target;
-            myScript.Move();
-            EditorGUIUtility.ExitGUI();
-        }
-    }
-}
+//        if (GUILayout.Button("Shoot"))
+//        {
+//            Mettool myScript = (Mettool)target;
+//            myScript.Shoot();
+//            EditorGUIUtility.ExitGUI();
+//        }
+//        if (GUILayout.Button("Hide"))
+//        {
+//            Mettool myScript = (Mettool)target;
+//            myScript.Hide();
+//            EditorGUIUtility.ExitGUI();
+//        }
+//        if (GUILayout.Button("Move"))
+//        {
+//            Mettool myScript = (Mettool)target;
+//            myScript.Move();
+//            EditorGUIUtility.ExitGUI();
+//        }
+//    }
+//}
