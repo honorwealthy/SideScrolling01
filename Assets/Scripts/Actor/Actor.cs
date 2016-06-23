@@ -7,7 +7,7 @@ public abstract class Actor : MonoBehaviour
     public float JumpVelocity = 28f;
 
     protected Avatar _avatar;
-    protected ActorStateController _stateController;
+    protected ActorStateMachine _stateController;
     protected Behaviour _behaviour;
 
     protected virtual void Awake()
@@ -19,7 +19,7 @@ public abstract class Actor : MonoBehaviour
 
     protected virtual void InitStateController()
     {
-        _stateController = gameObject.AddComponent<ActorStateController>();
+        _stateController = gameObject.GetComponent<ActorStateMachine>();
     }
 
     public virtual void Hurt(int damage) { }

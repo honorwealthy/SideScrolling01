@@ -6,7 +6,7 @@ public class MettoolStateBase : ActorState
 {
     public override void FixedUpdate()
     {
-        var direction = (_behaviour as MettoolBehaviour).Direction;
+        var direction = _behaviour.Direction;
         var speed = _entity.Speed;
         _avatar.rb2d.velocity = new Vector2(direction * speed, _avatar.rb2d.velocity.y);
 
@@ -44,14 +44,8 @@ public class MettoolShootState : MettoolStateBase
         _avatar.anim.SetTrigger("Shoot");
     }
 
-    public override void OnAnimationEvent(string eventName)
+    protected override void OnAnimationEvent(string eventName)
     {
-        if (eventName == "MettoolShootBuster")
-        {
-            var mettool = _entity as Mettool;
-            var buster = GameObject.Instantiate(mettool.Buster, mettool.transform.Find("Spurt").position, Quaternion.identity) as GameObject;
-            buster.GetComponent<MettoolBuster>().BeginFly((_behaviour as MettoolBehaviour).Direction);
-        }
         if (eventName == "MettoolShootOver")
             _stateMachine.GotoState("MettoolMoveState");
     }

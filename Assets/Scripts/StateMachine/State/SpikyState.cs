@@ -6,7 +6,7 @@ public class SpikyStateBase : ActorState
 {
     public override void FixedUpdate()
     {
-        var direction = ((Spiky)_entity).Direction;
+        var direction = _behaviour.Direction;
         var speed = _entity.Speed;
         _avatar.rb2d.velocity = new Vector2(direction * speed, _avatar.rb2d.velocity.y);
 
@@ -30,7 +30,7 @@ public class SpikyLaydownState : SpikyStateBase
         _avatar.anim.SetTrigger("Laydown");
     }
 
-    public override void OnAnimationEvent(string eventName)
+    protected override void OnAnimationEvent(string eventName)
     {
         if (eventName == "SpikyLaydownOver")
             _stateMachine.GotoState("SpikySlidingState");
@@ -49,7 +49,7 @@ public class SpikyRiseupState : SpikyStateBase
         _avatar.anim.SetTrigger("Riseup");
     }
 
-    public override void OnAnimationEvent(string eventName)
+    protected override void OnAnimationEvent(string eventName)
     {
         if (eventName == "SpikyRiseupOver")
             _stateMachine.GotoState("SpikyRollingState");

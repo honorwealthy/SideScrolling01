@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorStateController : MonoBehaviour
+public class ActorStateMachine : MonoBehaviour
 {
     private StateMachine<ActorState> _stateMachine;
 

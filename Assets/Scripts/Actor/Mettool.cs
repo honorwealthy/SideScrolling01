@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Mettool : Actor
 {
-    public float Direction { get; private set; }
     public GameObject Buster;
 
     protected override void InitStateController()
@@ -12,12 +11,8 @@ public class Mettool : Actor
         _stateController.AddState(new MettoolMoveState());
         _stateController.AddState(new MettoolHideState());
         _stateController.AddState(new MettoolShootState());
-    }
 
-    private void Start()
-    {
         _stateController.InitState("MettoolMoveState");
-        Direction = -1f;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
