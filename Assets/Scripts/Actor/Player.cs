@@ -9,26 +9,36 @@ public class Player : MonoBehaviour
     public float Speed = 9f;
     public float JumpVelocity = 28f;
     public bool HurtFromRight = true;
+    public float ImmortalDuration = 2f;
 
-    private PlayerStateMachine _playerStateMachine;
+    private PlayerStateMachine _playerControlStateMachine;
 
     private void Awake()
     {
         this.Avatar = GetComponent<Avatar>();
-        _playerStateMachine = gameObject.AddComponent<PlayerStateMachine>();
+        _playerControlStateMachine = gameObject.AddComponent<PlayerStateMachine>();
     }
 
     public string currentname = "";
     private void Update()
     {
-        currentname = _playerStateMachine.CurrentStateName;
+        currentname = _playerControlStateMachine.CurrentStateName;
     }
 
     public void Hurt(int damage, bool fromRight)
     {
-        _playerStateMachine.GotoState("HurtState");
-        HurtFromRight = fromRight;
+        if (gameObject.layer == LayerMask.NameToLayer("Entity"))
+        {
+            _playerControlStateMachine.GotoState("HurtState");
+            HurtFromRight = fromRight;
+            StartCoroutine(Immortal());
+        }
     }
-
-
+    
+    private IEnumerator Immortal()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ignore Entity");
+        yield return new WaitForSeconds(ImmortalDuration);
+        gameObject.layer = LayerMask.NameToLayer("Entity");
+    }
 }

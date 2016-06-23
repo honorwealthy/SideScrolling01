@@ -215,7 +215,7 @@ public class HurtState : PlayerStateBase
         _player.StartCoroutine(Recover());
         _avatar.SetDirection(_player.HurtFromRight);
         var direction = _player.HurtFromRight ? -1 : 1;
-        _avatar.rb2d.velocity = new Vector2(direction * 10, 15);
+        _avatar.rb2d.velocity = new Vector2(direction * 3, 7);
     }
 
     private IEnumerator Recover()
