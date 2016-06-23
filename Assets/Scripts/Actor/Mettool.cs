@@ -4,6 +4,7 @@ using System.Collections;
 public class Mettool : Actor
 {
     public float Direction { get; set; }
+    public GameObject Buster;
 
     protected override void InitStateController()
     {
@@ -36,13 +37,23 @@ public class Mettool : Actor
         }
     }
 
+    public void Shoot()
+    {
+        _stateController.GotoState("MettoolShootState");
+    }
+
+    public void Hide()
+    {
+        _stateController.GotoState("MettoolHideState");
+    }
+
+    public void Move()
+    {
+        _stateController.GotoState("MettoolMoveState");
+    }
+
     public override void Hurt(int damage)
     {
-        Collider2D[] cols = GetComponents<Collider2D>();
-        foreach (Collider2D c in cols)
-        {
-            c.isTrigger = true;
-        }
-        Destroy(gameObject, 0.1f);
+        Die();
     }
 }

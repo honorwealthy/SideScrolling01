@@ -15,6 +15,7 @@ public abstract class ActorState : IState
         _stateMachine = stateMachine;
         _entity = _stateMachine.Owner;
         _avatar = _entity.Avatar;
+        _avatar.OnAnimationEvent += OnAnimationEvent;
     }
 
     public virtual void OnEnterState(IState prevState) { }
@@ -23,4 +24,6 @@ public abstract class ActorState : IState
     public virtual void FixedUpdate() { }
     public virtual void Update() { }
     public virtual void LateUpdate() { }
+
+    public virtual void OnAnimationEvent(string eventName) { }
 }

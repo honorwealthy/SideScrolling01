@@ -43,11 +43,6 @@ public class Spiky : Actor
 
     public override void Hurt(int damage)
     {
-        Collider2D[] cols = GetComponents<Collider2D>();
-        foreach (Collider2D c in cols)
-        {
-            c.isTrigger = true;
-        }
-        Destroy(gameObject, 0.1f);
+        Die();
     }
 }

@@ -34,12 +34,9 @@ public class SpikyLaydownState : SpikyStateBase
         _avatar.anim.SetTrigger("Laydown");
     }
 
-    public SpikyLaydownState(ActorStateController stateMachine) : base(stateMachine)
-    {
-        _avatar.OnAnimationEvent += OnAnimationEvent;
-    }
+    public SpikyLaydownState(ActorStateController stateMachine) : base(stateMachine) { }
 
-    public void OnAnimationEvent(string eventName)
+    public override void OnAnimationEvent(string eventName)
     {
         if (eventName == "SpikyLaydownOver")
             _stateMachine.GotoState("SpikySlidingState");
@@ -58,12 +55,9 @@ public class SpikyRiseupState : SpikyStateBase
         _avatar.anim.SetTrigger("Riseup");
     }
 
-    public SpikyRiseupState(ActorStateController stateMachine) : base(stateMachine)
-    {
-        _avatar.OnAnimationEvent += OnAnimationEvent;
-    }
+    public SpikyRiseupState(ActorStateController stateMachine) : base(stateMachine) { }
 
-    public void OnAnimationEvent(string eventName)
+    public override void OnAnimationEvent(string eventName)
     {
         if (eventName == "SpikyRiseupOver")
             _stateMachine.GotoState("SpikyRollingState");

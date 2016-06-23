@@ -22,6 +22,16 @@ public abstract class Actor : MonoBehaviour
 
     public virtual void Hurt(int damage) { }
 
+    public virtual void Die()
+    {
+        Collider2D[] cols = GetComponents<Collider2D>();
+        foreach (Collider2D c in cols)
+        {
+            c.isTrigger = true;
+        }
+        Destroy(gameObject, 0.1f);
+    }
+
     public virtual void FixedUpdate()
     {
         _stateController.FixedUpdate();

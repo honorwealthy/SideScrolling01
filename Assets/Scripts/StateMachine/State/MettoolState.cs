@@ -28,7 +28,12 @@ public class MettoolHideState : MettoolStateBase
 
     public override void OnEnterState(IState prevState)
     {
-        //_avatar.anim.SetTrigger("Laydown");
+        _avatar.anim.SetTrigger("Hide");
+    }
+
+    public override void OnLeaveState()
+    {
+        _avatar.anim.SetTrigger("Move");
     }
 
     public override void FixedUpdate()
@@ -43,7 +48,19 @@ public class MettoolShootState : MettoolStateBase
 
     public override void OnEnterState(IState prevState)
     {
-        //_avatar.anim.SetTrigger("Laydown");
+        _avatar.anim.SetTrigger("Shoot");
+    }
+
+    public override void OnAnimationEvent(string eventName)
+    {
+        if (eventName == "MettoolShootBuster")
+        {
+            var mettool = _entity as Mettool;
+            var buster = GameObject.Instantiate(mettool.Buster, mettool.transform.Find("Spurt").position, Quaternion.identity) as GameObject;
+            buster.GetComponent<MettoolBuster>().BeginFly(mettool.Direction);
+        }
+        if (eventName == "MettoolShootOver")
+            _stateMachine.GotoState("MettoolMoveState");
     }
 
     public override void FixedUpdate()
