@@ -5,14 +5,14 @@ namespace SeafoodStudio
 {
     public class ActorStateMachine : MonoBehaviour
     {
-        private StateMachine<ActorState> _stateMachine;
+		private StateMachine<ActorState> _stateMachine = new StateMachine<ActorState>();
 
         public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
-        private void Awake()
-        {
-            _stateMachine = new StateMachine<ActorState>();
-        }
+//        private void Awake()
+//        {
+//            _stateMachine = new StateMachine<ActorState>();
+//        }
 
         public void InitState(string statename)
         {

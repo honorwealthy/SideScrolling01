@@ -30,7 +30,7 @@ namespace SeafoodStudio
 
         private bool CheckGround()
         {
-            return ForwardChecker.GetComponent<GroundChecker>().Hit;
+			return ForwardChecker.GetComponent<GroundChecker>().CheckGround();
         }
 
         private IEnumerator Think()

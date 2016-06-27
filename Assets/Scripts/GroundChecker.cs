@@ -7,25 +7,26 @@ namespace SeafoodStudio
     {
         public float Radius = 1f;
         public float Distance = 0f;
-        public RaycastHit2D Hit;
+//        public RaycastHit2D Hit;
 
         [SerializeField]
         private bool isHit;
 
-        private void Awake()
-        {
-            CheckGround();
-        }
+//        private void Awake()
+//        {
+//            CheckGround();
+//        }
 
-        private void FixedUpdate()
-        {
-            CheckGround();
-        }
+//        private void FixedUpdate()
+//        {
+//            CheckGround();
+//        }
 
-        private void CheckGround()
+		public RaycastHit2D CheckGround()
         {
-            Hit = Physics2D.CircleCast(transform.position, Radius, Vector2.down, Distance, 1 << LayerMask.NameToLayer("Ground"));
+			RaycastHit2D Hit = Physics2D.CircleCast(transform.position, Radius, Vector2.down, Distance, 1 << LayerMask.NameToLayer("Ground"));
             isHit = (bool)Hit;
+			return Hit;
         }
 
         private void OnDrawGizmos()
