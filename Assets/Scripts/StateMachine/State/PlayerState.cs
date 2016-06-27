@@ -11,8 +11,7 @@ namespace SeafoodStudio
         protected PlayerStateMachine _stateMachine;
         protected Player _player;
         protected IAvatar _avatar;
-        protected Transform _groundCheckLeft;
-        protected Transform _groundCheckRight;
+        protected GroundChecker _groundChecker;
 
         public virtual void OnEnterState(IState<string> prevState) { }
 
@@ -23,8 +22,7 @@ namespace SeafoodStudio
             _stateMachine = stateMachine;
             _player = _stateMachine.Owner;
             _avatar = _player.Avatar;
-            _groundCheckLeft = _player.GroundCheckLeft;
-            _groundCheckRight = _player.GroundCheckRight;
+            _groundChecker = _player.GroundChecker;
         }
 
         public virtual void FixedUpdate()
@@ -44,7 +42,7 @@ namespace SeafoodStudio
 
         protected RaycastHit2D CheckGrounded()
         {
-            var grounded = Physics2D.Linecast(_groundCheckLeft.position, _groundCheckRight.position, 1 << LayerMask.NameToLayer("Ground"));
+            var grounded = _groundChecker.CheckGround();
             _avatar.anim.SetBool("IsGrounded", grounded);
             return grounded;
         }

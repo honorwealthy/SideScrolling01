@@ -5,8 +5,7 @@ namespace SeafoodStudio
 {
     public class Player : MonoBehaviour
     {
-        public Transform GroundCheckLeft;
-        public Transform GroundCheckRight;
+        public GroundChecker GroundChecker;
         public IAvatar Avatar { get; private set; }
         public float Speed = 9f;
         public float JumpVelocity = 28f;
