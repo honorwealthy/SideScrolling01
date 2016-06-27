@@ -6,6 +6,9 @@ namespace SeafoodStudio
     public class MettoolBehaviour : Behaviour
     {
         private bool _rethink = true;
+        public GameObject Buster;
+        public Transform Spurt;
+        public GameObject ForwardChecker;
 
         protected override void Awake()
         {
@@ -20,11 +23,21 @@ namespace SeafoodStudio
                 _entity.StartCoroutine(Think());
                 _rethink = false;
             }
+
+            if (!CheckGround())
+            {
+                Direction *= -1;
+            }
+        }
+
+        private bool CheckGround()
+        {
+            return ForwardChecker.GetComponent<GroundChecker>().Hit;
         }
 
         private IEnumerator Think()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             _rethink = true;
 
             var rand = Random.Range(0, 5);
@@ -48,21 +61,12 @@ namespace SeafoodStudio
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("edge"))
-            {
-                Direction *= -1;
-            }
-        }
-
         protected override void OnAnimationEvent(string eventName)
         {
             if (eventName == "MettoolShootBuster")
             {
-                var mettool = _entity as Mettool;
-                var buster = Instantiate(mettool.Buster, mettool.transform.Find("Spurt").position, Quaternion.identity) as GameObject;
-                buster.GetComponent<MettoolBuster>().BeginFly(Direction);
+                var buster = Instantiate(Buster, Spurt.position, Quaternion.identity) as GameObject;
+                buster.GetComponent<MettoolBuster>().OnFire(Direction);
             }
         }
     }

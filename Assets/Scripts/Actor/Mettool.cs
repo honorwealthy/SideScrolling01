@@ -5,8 +5,6 @@ namespace SeafoodStudio
 {
     public class Mettool : Actor
     {
-        public GameObject Buster;
-
         protected override void InitStateController()
         {
             base.InitStateController();
@@ -29,6 +27,11 @@ namespace SeafoodStudio
         public override void Hurt(int damage)
         {
             Die();
+        }
+
+        public void Immortal(bool on)
+        {
+            gameObject.layer = on ? LayerMask.NameToLayer("Ignore Entity") : LayerMask.NameToLayer("Enemy");
         }
     }
 }

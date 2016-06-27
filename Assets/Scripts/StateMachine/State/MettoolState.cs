@@ -26,11 +26,13 @@ namespace SeafoodStudio
         public override void OnEnterState(IState prevState)
         {
             _avatar.anim.SetTrigger("Hide");
+            ((Mettool)_entity).Immortal(true);
         }
 
         public override void OnLeaveState()
         {
             _avatar.anim.SetTrigger("Move");
+            ((Mettool)_entity).Immortal(false);
         }
 
         public override void FixedUpdate()

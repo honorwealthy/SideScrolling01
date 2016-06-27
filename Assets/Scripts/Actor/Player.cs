@@ -39,7 +39,7 @@ namespace SeafoodStudio
 
         private IEnumerator Immortal()
         {
-            gameObject.layer = LayerMask.NameToLayer("Ignore Enemy");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Entity");
             yield return new WaitForSeconds(ImmortalDuration);
             gameObject.layer = LayerMask.NameToLayer("Player");
         }

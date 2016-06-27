@@ -6,6 +6,7 @@ namespace SeafoodStudio
     public class SpikyBehaviour : Behaviour
     {
         private bool _rethink = true;
+        public GameObject ForwardChecker;
 
         protected override void Awake()
         {
@@ -20,6 +21,16 @@ namespace SeafoodStudio
                 _entity.StartCoroutine(Think());
                 _rethink = false;
             }
+
+            if (!CheckGround())
+            {
+                Direction *= -1;
+            }
+        }
+
+        private bool CheckGround()
+        {
+            return ForwardChecker.GetComponent<GroundChecker>().Hit;
         }
 
         private IEnumerator Think()
@@ -41,14 +52,6 @@ namespace SeafoodStudio
                 {
                     _stateController.GotoState("SpikyRiseupState");
                 }
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("edge"))
-            {
-                Direction *= -1;
             }
         }
     }
