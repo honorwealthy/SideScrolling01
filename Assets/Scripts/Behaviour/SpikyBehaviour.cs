@@ -1,52 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpikyBehaviour : Behaviour
+namespace SeafoodStudio
 {
-    private bool _rethink = true;
-
-    protected override void Awake()
+    public class SpikyBehaviour : Behaviour
     {
-        base.Awake();
-        Direction = -1;
-    }
+        private bool _rethink = true;
 
-    private void FixedUpdate()
-    {
-        if (_rethink)
+        protected override void Awake()
         {
-            _entity.StartCoroutine(Think());
-            _rethink = false;
+            base.Awake();
+            Direction = -1;
         }
-    }
 
-    private IEnumerator Think()
-    {
-        yield return new WaitForSeconds(1f);
-        _rethink = true;
-
-        var rand = Random.Range(0, 8);
-        if (_stateController.CurrentStateName == "SpikyRollingState")
+        private void FixedUpdate()
         {
-            if (rand < 1)
+            if (_rethink)
             {
-                _stateController.GotoState("SpikyLaydownState");
+                _entity.StartCoroutine(Think());
+                _rethink = false;
             }
         }
-        else if (_stateController.CurrentStateName == "SpikySlidingState")
+
+        private IEnumerator Think()
         {
-            if (rand < 1)
+            yield return new WaitForSeconds(1f);
+            _rethink = true;
+
+            var rand = Random.Range(0, 8);
+            if (_stateController.CurrentStateName == "SpikyRollingState")
             {
-                _stateController.GotoState("SpikyRiseupState");
+                if (rand < 1)
+                {
+                    _stateController.GotoState("SpikyLaydownState");
+                }
+            }
+            else if (_stateController.CurrentStateName == "SpikySlidingState")
+            {
+                if (rand < 1)
+                {
+                    _stateController.GotoState("SpikyRiseupState");
+                }
             }
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("edge"))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Direction *= -1;
+            if (other.CompareTag("edge"))
+            {
+                Direction *= -1;
+            }
         }
     }
 }

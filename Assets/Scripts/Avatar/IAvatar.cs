@@ -2,11 +2,14 @@
 using System.Collections;
 using System;
 
-public interface IAvatar
+namespace SeafoodStudio
 {
-    Animator anim { get; }
-    Rigidbody2D rb2d { get; }
-    event Action<string> OnAnimationEvent;
+    public interface IAvatar
+    {
+        Animator anim { get; }
+        Rigidbody2D rb2d { get; }
+        event Action<string> OnAnimationEvent;
 
-    void SetDirection(bool isRight);
+        void SetDirection(bool isRight);
+    }
 }

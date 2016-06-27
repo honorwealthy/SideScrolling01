@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorStateMachine : MonoBehaviour
+namespace SeafoodStudio
 {
-    private StateMachine<ActorState> _stateMachine;
-
-    public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
-
-    private void Awake()
+    public class ActorStateMachine : MonoBehaviour
     {
-        _stateMachine = new StateMachine<ActorState>();
-    }
+        private StateMachine<ActorState> _stateMachine;
 
-    public void InitState(string statename)
-    {
-        _stateMachine.GotoState(statename);
-    }
+        public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
-    public void GotoState(string statename)
-    {
-        StartCoroutine(GotoStateNextFrame(statename));
-    }
+        private void Awake()
+        {
+            _stateMachine = new StateMachine<ActorState>();
+        }
 
-    private IEnumerator GotoStateNextFrame(string statename)
-    {
-        yield return new WaitForEndOfFrame();
-        _stateMachine.GotoState(statename);
-    }
+        public void InitState(string statename)
+        {
+            _stateMachine.GotoState(statename);
+        }
 
-    public void AddState(ActorState state)
-    {
-        _stateMachine.AddState(state.StateName, state);
-        state.InitState(gameObject.GetComponent<Actor>());
-    }
+        public void GotoState(string statename)
+        {
+            StartCoroutine(GotoStateNextFrame(statename));
+        }
 
-    private void FixedUpdate()
-    {
-        _stateMachine.CurrentState.FixedUpdate();
-    }
+        private IEnumerator GotoStateNextFrame(string statename)
+        {
+            yield return new WaitForEndOfFrame();
+            _stateMachine.GotoState(statename);
+        }
 
-    private void Update()
-    {
-        _stateMachine.CurrentState.Update();
-    }
+        public void AddState(ActorState state)
+        {
+            _stateMachine.AddState(state.StateName, state);
+            state.InitState(gameObject.GetComponent<Actor>());
+        }
 
-    private void LateUpdate()
-    {
-        _stateMachine.CurrentState.LateUpdate();
+        private void FixedUpdate()
+        {
+            _stateMachine.CurrentState.FixedUpdate();
+        }
+
+        private void Update()
+        {
+            _stateMachine.CurrentState.Update();
+        }
+
+        private void LateUpdate()
+        {
+            _stateMachine.CurrentState.LateUpdate();
+        }
     }
 }

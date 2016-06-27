@@ -1,66 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MettoolBehaviour : Behaviour
+namespace SeafoodStudio
 {
-    private bool _rethink = true;
-
-    protected override void Awake()
+    public class MettoolBehaviour : Behaviour
     {
-        base.Awake();
-        Direction = -1;
-    }
+        private bool _rethink = true;
 
-    private void FixedUpdate()
-    {
-        if (_rethink)
+        protected override void Awake()
         {
-            _entity.StartCoroutine(Think());
-            _rethink = false;
+            base.Awake();
+            Direction = -1;
         }
-    }
 
-    private IEnumerator Think()
-    {
-        yield return new WaitForSeconds(1f);
-        _rethink = true;
-
-        var rand = Random.Range(0, 5);
-        if (_stateController.CurrentStateName == "MettoolMoveState")
+        private void FixedUpdate()
         {
-            if (rand < 1)
+            if (_rethink)
             {
-                _stateController.GotoState("MettoolShootState");
-            }
-            else if (rand < 2)
-            {
-                _stateController.GotoState("MettoolHideState");
+                _entity.StartCoroutine(Think());
+                _rethink = false;
             }
         }
-        else if (_stateController.CurrentStateName == "MettoolHideState")
+
+        private IEnumerator Think()
         {
-            if (rand < 2)
+            yield return new WaitForSeconds(1f);
+            _rethink = true;
+
+            var rand = Random.Range(0, 5);
+            if (_stateController.CurrentStateName == "MettoolMoveState")
             {
-                _stateController.GotoState("MettoolMoveState");
+                if (rand < 1)
+                {
+                    _stateController.GotoState("MettoolShootState");
+                }
+                else if (rand < 2)
+                {
+                    _stateController.GotoState("MettoolHideState");
+                }
+            }
+            else if (_stateController.CurrentStateName == "MettoolHideState")
+            {
+                if (rand < 2)
+                {
+                    _stateController.GotoState("MettoolMoveState");
+                }
             }
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("edge"))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Direction *= -1;
+            if (other.CompareTag("edge"))
+            {
+                Direction *= -1;
+            }
         }
-    }
 
-    protected override void OnAnimationEvent(string eventName)
-    {
-        if (eventName == "MettoolShootBuster")
+        protected override void OnAnimationEvent(string eventName)
         {
-            var mettool = _entity as Mettool;
-            var buster = Instantiate(mettool.Buster, mettool.transform.Find("Spurt").position, Quaternion.identity) as GameObject;
-            buster.GetComponent<MettoolBuster>().BeginFly(Direction);
+            if (eventName == "MettoolShootBuster")
+            {
+                var mettool = _entity as Mettool;
+                var buster = Instantiate(mettool.Buster, mettool.transform.Find("Spurt").position, Quaternion.identity) as GameObject;
+                buster.GetComponent<MettoolBuster>().BeginFly(Direction);
+            }
         }
     }
 }

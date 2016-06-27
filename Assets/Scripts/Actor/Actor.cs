@@ -1,36 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Actor : MonoBehaviour
+namespace SeafoodStudio
 {
-    public float Speed = 9f;
-    public float JumpVelocity = 28f;
-
-    protected Avatar _avatar;
-    protected ActorStateMachine _stateController;
-    protected Behaviour _behaviour;
-
-    protected virtual void Awake()
+    public abstract class Actor : MonoBehaviour
     {
-        _avatar = GetComponent<Avatar>();
-        InitStateController();
-        _behaviour = gameObject.GetComponent<Behaviour>();
-    }
+        public float Speed = 9f;
+        public float JumpVelocity = 28f;
 
-    protected virtual void InitStateController()
-    {
-        _stateController = gameObject.GetComponent<ActorStateMachine>();
-    }
+        protected Avatar _avatar;
+        protected ActorStateMachine _stateController;
+        protected Behaviour _behaviour;
 
-    public virtual void Hurt(int damage) { }
-
-    public virtual void Die()
-    {
-        Collider2D[] cols = GetComponents<Collider2D>();
-        foreach (Collider2D c in cols)
+        protected virtual void Awake()
         {
-            c.isTrigger = true;
+            _avatar = GetComponent<Avatar>();
+            InitStateController();
+            _behaviour = gameObject.GetComponent<Behaviour>();
         }
-        Destroy(gameObject, 0.1f);
+
+        protected virtual void InitStateController()
+        {
+            _stateController = gameObject.GetComponent<ActorStateMachine>();
+        }
+
+        public virtual void Hurt(int damage) { }
+
+        public virtual void Die()
+        {
+            Collider2D[] cols = GetComponents<Collider2D>();
+            foreach (Collider2D c in cols)
+            {
+                c.isTrigger = true;
+            }
+            Destroy(gameObject, 0.1f);
+        }
     }
 }

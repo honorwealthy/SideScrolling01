@@ -1,31 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mettool : Actor
+namespace SeafoodStudio
 {
-    public GameObject Buster;
-
-    protected override void InitStateController()
+    public class Mettool : Actor
     {
-        base.InitStateController();
-        _stateController.AddState(new MettoolMoveState());
-        _stateController.AddState(new MettoolHideState());
-        _stateController.AddState(new MettoolShootState());
+        public GameObject Buster;
 
-        _stateController.InitState("MettoolMoveState");
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
+        protected override void InitStateController()
         {
-            bool fromRight = (transform.position.x > other.transform.position.x);
-            other.gameObject.GetComponent<Player>().Hurt(1, fromRight);
-        }
-    }
+            base.InitStateController();
+            _stateController.AddState(new MettoolMoveState());
+            _stateController.AddState(new MettoolHideState());
+            _stateController.AddState(new MettoolShootState());
 
-    public override void Hurt(int damage)
-    {
-        Die();
+            _stateController.InitState("MettoolMoveState");
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                bool fromRight = (transform.position.x > other.transform.position.x);
+                other.gameObject.GetComponent<Player>().Hurt(1, fromRight);
+            }
+        }
+
+        public override void Hurt(int damage)
+        {
+            Die();
+        }
     }
 }

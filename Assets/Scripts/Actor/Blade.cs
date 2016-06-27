@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Blade : MonoBehaviour
+namespace SeafoodStudio
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public class Blade : MonoBehaviour
     {
-        if (other.CompareTag("Enemy"))
-            other.GetComponent<Actor>().Hurt(1);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Enemy"))
+                other.GetComponent<Actor>().Hurt(1);
+        }
     }
 }

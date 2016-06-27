@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MettoolBuster : MonoBehaviour
+namespace SeafoodStudio
 {
-    public float Speed = 10f;
-
-    private void Start()
+    public class MettoolBuster : MonoBehaviour
     {
-        Destroy(gameObject, 2);
-    }
+        public float Speed = 10f;
 
-    public void BeginFly(float direction)
-    {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(direction * Speed, 0);
-    }
+        private void Start()
+        {
+            Destroy(gameObject, 2);
+        }
 
-    //private void OnTriggerEnter2D(Collider2D col)
-    //{
-    //    Destroy(gameObject);
-    //}
+        public void BeginFly(float direction)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(direction * Speed, 0);
+        }
+
+        //private void OnTriggerEnter2D(Collider2D col)
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
 }

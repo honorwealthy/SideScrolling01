@@ -1,63 +1,66 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerStateMachine : MonoBehaviour
+namespace SeafoodStudio
 {
-    public Player Owner { get; private set; }
-
-    private StateMachine<string, PlayerStateBase> _stateMachine;
-
-    public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
-
-    public void GotoState(string statename)
+    public class PlayerStateMachine : MonoBehaviour
     {
-        StartCoroutine(GotoStateNextFrame(statename));
-    }
+        public Player Owner { get; private set; }
 
-    private IEnumerator GotoStateNextFrame(string statename)
-    {
-        yield return new WaitForEndOfFrame();
-        _stateMachine.GotoState(statename);
-    }
+        private StateMachine<string, PlayerStateBase> _stateMachine;
 
-    private void Awake()
-    {
-        Owner = GetComponent<Player>();
-        InitStateMachine();
-    }
+        public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
-    private void InitStateMachine()
-    {
-        _stateMachine = new StateMachine<string, PlayerStateBase>();
-        AddState(new GroundState(this));
-        AddState(new JumpState(this));
-        AddState(new AirState(this));
-        AddState(new GroundAttackState(this));
-        AddState(new HurtState(this));
-    }
+        public void GotoState(string statename)
+        {
+            StartCoroutine(GotoStateNextFrame(statename));
+        }
 
-    private void AddState(PlayerStateBase state)
-    {
-        _stateMachine.AddState(state.StateName, state);
-    }
+        private IEnumerator GotoStateNextFrame(string statename)
+        {
+            yield return new WaitForEndOfFrame();
+            _stateMachine.GotoState(statename);
+        }
 
-    private void Start()
-    {
-        _stateMachine.GotoState("GroundState");
-    }
+        private void Awake()
+        {
+            Owner = GetComponent<Player>();
+            InitStateMachine();
+        }
 
-    private void FixedUpdate()
-    {
-        _stateMachine.CurrentState.FixedUpdate();
-    }
+        private void InitStateMachine()
+        {
+            _stateMachine = new StateMachine<string, PlayerStateBase>();
+            AddState(new GroundState(this));
+            AddState(new JumpState(this));
+            AddState(new AirState(this));
+            AddState(new GroundAttackState(this));
+            AddState(new HurtState(this));
+        }
 
-    private void Update()
-    {
-        _stateMachine.CurrentState.Update();
-    }
+        private void AddState(PlayerStateBase state)
+        {
+            _stateMachine.AddState(state.StateName, state);
+        }
 
-    private void LateUpdate()
-    {
-        _stateMachine.CurrentState.LateUpdate();
+        private void Start()
+        {
+            _stateMachine.GotoState("GroundState");
+        }
+
+        private void FixedUpdate()
+        {
+            _stateMachine.CurrentState.FixedUpdate();
+        }
+
+        private void Update()
+        {
+            _stateMachine.CurrentState.Update();
+        }
+
+        private void LateUpdate()
+        {
+            _stateMachine.CurrentState.LateUpdate();
+        }
     }
 }
