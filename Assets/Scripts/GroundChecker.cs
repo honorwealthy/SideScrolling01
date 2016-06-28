@@ -1,32 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SeafoodStudio
 {
+    public enum CheckDirection { Down, Forward }
+
     public class GroundChecker : MonoBehaviour
     {
         public float Radius = 1f;
         public float Distance = 0f;
-//        public RaycastHit2D Hit;
-
+        public CheckDirection Direction = CheckDirection.Down;
+        
         [SerializeField]
         private bool isHit;
 
-//        private void Awake()
-//        {
-//            CheckGround();
-//        }
-
-//        private void FixedUpdate()
-//        {
-//            CheckGround();
-//        }
-
 		public RaycastHit2D CheckGround()
         {
-			RaycastHit2D Hit = Physics2D.CircleCast(transform.position, Radius, Vector2.down, Distance, 1 << LayerMask.NameToLayer("Ground"));
+            Vector2 dir = GetDirection(Direction);
+            RaycastHit2D Hit = Physics2D.CircleCast(transform.position, Radius, dir, Distance, 1 << LayerMask.NameToLayer("Ground"));
             isHit = (bool)Hit;
 			return Hit;
+        }
+
+        private Vector3 GetDirection(CheckDirection direction)
+        {
+            Vector3 ret = Vector3.down;
+            if (direction == CheckDirection.Forward)
+            {
+                int forward = transform.lossyScale.x > 0 ? 1: -1;
+                ret = Vector3.right * forward;
+            }
+
+            return ret;
         }
 
         private void OnDrawGizmos()
@@ -35,7 +41,7 @@ namespace SeafoodStudio
             Gizmos.DrawWireSphere(transform.position, Radius);
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position + Vector3.down * Distance, Radius);
+            Gizmos.DrawWireSphere(transform.position + GetDirection(Direction) * Distance, Radius);
         }
     }
 }

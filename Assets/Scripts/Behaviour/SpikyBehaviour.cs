@@ -7,11 +7,12 @@ namespace SeafoodStudio
     {
         private bool _rethink = true;
         public GameObject ForwardChecker;
+        public GameObject WallChecker;
 
         protected override void Awake()
         {
             base.Awake();
-            Direction = -1;
+            Direction = gameObject.transform.localScale.x > 0 ? 1 : -1;
         }
 
         private void FixedUpdate()
@@ -22,7 +23,7 @@ namespace SeafoodStudio
                 _rethink = false;
             }
 
-            if (!CheckGround())
+            if (!CheckGround() || CheckWall())
             {
                 Direction *= -1;
             }
@@ -31,6 +32,11 @@ namespace SeafoodStudio
         private bool CheckGround()
         {
 			return ForwardChecker.GetComponent<GroundChecker>().CheckGround();
+        }
+
+        private bool CheckWall()
+        {
+            return WallChecker.GetComponent<GroundChecker>().CheckGround();
         }
 
         private IEnumerator Think()

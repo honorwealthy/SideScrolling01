@@ -5,14 +5,18 @@ namespace SeafoodStudio
 {
     public class Mettool : Actor
     {
-        protected override void InitStateController()
+        public bool IsImmortal { get; set; }
+
+        protected override void Init()
         {
-            base.InitStateController();
+            base.Init();
             _stateController.AddState(new MettoolMoveState());
             _stateController.AddState(new MettoolHideState());
             _stateController.AddState(new MettoolShootState());
 
             _stateController.InitState("MettoolMoveState");
+
+            IsImmortal = false;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -26,12 +30,10 @@ namespace SeafoodStudio
 
         public override void Hurt(int damage)
         {
-            Die();
-        }
-
-        public void Immortal(bool on)
-        {
-            gameObject.layer = on ? LayerMask.NameToLayer("Ignore Entity") : LayerMask.NameToLayer("Enemy");
+            if (!IsImmortal)
+            {
+                Die();
+            }
         }
     }
 }

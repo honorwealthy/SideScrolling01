@@ -9,11 +9,6 @@ namespace SeafoodStudio
 
         public string CurrentStateName { get { return _stateMachine.CurrentState.StateName; } }
 
-//        private void Awake()
-//        {
-//            _stateMachine = new StateMachine<ActorState>();
-//        }
-
         public void InitState(string statename)
         {
             _stateMachine.GotoState(statename);

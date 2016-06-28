@@ -13,7 +13,7 @@ namespace SeafoodStudio
         protected override void Awake()
         {
             base.Awake();
-            Direction = -1;
+            Direction = gameObject.transform.localScale.x > 0 ? -1 : 1;
         }
 
         private void FixedUpdate()

@@ -5,9 +5,9 @@ namespace SeafoodStudio
 {
     public class Spiky : Actor
     {
-        protected override void InitStateController()
+        protected override void Init()
         {
-            base.InitStateController();
+            base.Init();
             _stateController.AddState(new SpikyRollingState());
             _stateController.AddState(new SpikyLaydownState());
             _stateController.AddState(new SpikySlidingState());

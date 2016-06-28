@@ -15,14 +15,12 @@ namespace SeafoodStudio
         protected virtual void Awake()
         {
             _avatar = GetComponent<Avatar>();
-            InitStateController();
+            _stateController = gameObject.GetComponent<ActorStateMachine>();
             _behaviour = gameObject.GetComponent<Behaviour>();
+            Init();
         }
 
-        protected virtual void InitStateController()
-        {
-            _stateController = gameObject.GetComponent<ActorStateMachine>();
-        }
+        protected virtual void Init() { }
 
         public virtual void Hurt(int damage) { }
 
