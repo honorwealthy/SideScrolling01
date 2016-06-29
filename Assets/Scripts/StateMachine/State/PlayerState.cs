@@ -211,17 +211,10 @@ namespace SeafoodStudio
 
         public override void OnEnterState(IState<string> prevState)
         {
-            //_avatar.anim.SetTrigger("FallBegin");
-            _player.StartCoroutine(Recover());
+            _avatar.anim.SetTrigger("Hurt");
             _avatar.SetDirection(_player.HurtFromRight);
             var direction = _player.HurtFromRight ? -1 : 1;
             _avatar.rb2d.velocity = new Vector2(direction * 3, 7);
-        }
-
-        private IEnumerator Recover()
-        {
-            yield return new WaitForSeconds(0.5f);
-            OnAnimationEvent("ZeroHurtOver");
         }
 
         public override void FixedUpdate()

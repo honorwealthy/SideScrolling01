@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5674371249c301b45975a3bafdce326f
-timeCreated: 1466185867
+timeCreated: 1467229946
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -3351,22 +3351,22 @@ TextureImporter:
     - name: zerox4sheet_166
       rect:
         serializedVersion: 2
-        x: 273
+        x: 271
         y: 175
-        width: 48
+        width: 50
         height: 55
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.5, y: 0.0727}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -10, y: 55}
-        - {x: -24, y: 47}
-        - {x: -24, y: 11}
-        - {x: -20, y: 0}
-        - {x: 23, y: 0}
-        - {x: 24, y: 1}
-        - {x: 24, y: 39}
-        - {x: 12, y: 55}
+      - - {x: -12, y: 51.001495}
+        - {x: -25, y: 48.001495}
+        - {x: -25, y: 8.001495}
+        - {x: -23, y: -3.9985046}
+        - {x: 21, y: -3.9985046}
+        - {x: 25, y: 12.001495}
+        - {x: 25, y: 30.001495}
+        - {x: 12, y: 51.001495}
     - name: zerox4sheet_167
       rect:
         serializedVersion: 2
@@ -3491,17 +3491,6 @@ TextureImporter:
         - {x: -11, y: 56}
         - {x: -11, y: 58}
         - {x: -14, y: 61}
-    - name: zerox4sheet_173
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 167
-        width: 4
-        height: 4
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
     - name: zerox4sheet_174
       rect:
         serializedVersion: 2
