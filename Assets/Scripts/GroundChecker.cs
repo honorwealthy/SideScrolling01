@@ -11,16 +11,11 @@ namespace SeafoodStudio
         public float Radius = 1f;
         public float Distance = 0f;
         public CheckDirection Direction = CheckDirection.Down;
-        
-        [SerializeField]
-        private bool isHit;
 
 		public RaycastHit2D CheckGround()
         {
             Vector2 dir = GetDirection(Direction);
-            RaycastHit2D Hit = Physics2D.CircleCast(transform.position, Radius, dir, Distance, 1 << LayerMask.NameToLayer("Ground"));
-            isHit = (bool)Hit;
-			return Hit;
+            return Physics2D.CircleCast(transform.position, Radius, dir, Distance, 1 << LayerMask.NameToLayer("Ground"));
         }
 
         private Vector3 GetDirection(CheckDirection direction)

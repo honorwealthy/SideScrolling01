@@ -17,8 +17,12 @@ namespace SeafoodStudio
 
         public override void Hurt(int damage)
         {
-            //Die();
-            _stateController.GotoState("SpikyHurtState");
+            HP -= damage;
+
+            if (HP > 0)
+                _stateController.GotoState("SpikyHurtState");
+            else
+                Die();
         }
     }
 }

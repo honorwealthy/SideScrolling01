@@ -24,8 +24,12 @@ namespace SeafoodStudio
         {
             if (!IsImmortal)
             {
-                //Die();
-                _stateController.GotoState("MettoolHurtState");
+                HP -= damage;
+
+                if (HP > 0)
+                    _stateController.GotoState("MettoolHurtState");
+                else
+                    Die();
             }
         }
     }

@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DeathZone : MonoBehaviour
+namespace SeafoodStudio
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public class DeathZone : MonoBehaviour
     {
-        Destroy(other.gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Enemy"))
+                Destroy(other.gameObject, 2);
+            else if (other.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<Player>().Die();
+            }
+        }
     }
 }

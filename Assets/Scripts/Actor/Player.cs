@@ -11,6 +11,8 @@ namespace SeafoodStudio
         public float JumpVelocity = 28f;
         public bool HurtFromRight = true;
         public float ImmortalDuration = 2f;
+        public GameObject explosion;
+        public int HP = 5;
 
         private PlayerStateMachine _playerControlStateMachine;
 
@@ -30,9 +32,18 @@ namespace SeafoodStudio
         {
             if (gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                _playerControlStateMachine.GotoState("HurtState");
-                HurtFromRight = fromRight;
-                StartCoroutine(Immortal());
+                HP -= damage;
+
+                if (HP > 0)
+                {
+                    _playerControlStateMachine.GotoState("HurtState");
+                    HurtFromRight = fromRight;
+                    StartCoroutine(Immortal());
+                }
+                else
+                {
+                    Die();
+                }
             }
         }
 
@@ -41,6 +52,27 @@ namespace SeafoodStudio
             gameObject.layer = LayerMask.NameToLayer("Ignore Entity");
             yield return new WaitForSeconds(ImmortalDuration);
             gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+
+        public void Die()
+        {
+            Collider2D[] cols = GetComponents<Collider2D>();
+            foreach (Collider2D c in cols)
+            {
+                c.isTrigger = true;
+            }
+            OnExplode();
+            Destroy(gameObject, 0.1f);
+        }
+
+        private void OnExplode()
+        {
+            // Create a quaternion with a random rotation in the z-axis.
+            Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+
+            // Instantiate the explosion where the rocket is with the random rotation.
+            var expl = Instantiate(explosion, transform.position, randomRotation);
+            Destroy(expl, 1f);
         }
     }
 }

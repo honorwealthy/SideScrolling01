@@ -22,7 +22,6 @@ namespace SeafoodStudio
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-
         bool CheckXMargin()
         {
             // Returns true if the distance between the camera and the player in the x axis is greater than the x margin.
@@ -39,7 +38,8 @@ namespace SeafoodStudio
 
         void FixedUpdate()
         {
-            TrackPlayer();
+            if (player != null)
+                TrackPlayer();
         }
 
 
