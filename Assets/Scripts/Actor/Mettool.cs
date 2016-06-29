@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace SeafoodStudio
 {
-    public class Mettool : Actor
+    public class Mettool : Enemy
     {
         public bool IsImmortal { get; set; }
 
@@ -13,26 +13,19 @@ namespace SeafoodStudio
             _stateController.AddState(new MettoolMoveState());
             _stateController.AddState(new MettoolHideState());
             _stateController.AddState(new MettoolShootState());
+            _stateController.AddState(new MettoolHurtState());
 
             _stateController.InitState("MettoolMoveState");
 
             IsImmortal = false;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                bool fromRight = (transform.position.x > other.transform.position.x);
-                other.gameObject.GetComponent<Player>().Hurt(1, fromRight);
-            }
-        }
-
         public override void Hurt(int damage)
         {
             if (!IsImmortal)
             {
-                Die();
+                //Die();
+                _stateController.GotoState("MettoolHurtState");
             }
         }
     }

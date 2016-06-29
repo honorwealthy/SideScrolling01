@@ -17,25 +17,23 @@ namespace SeafoodStudio
         }
     }
 
-    public class SpikyRollingState : SpikyStateBase
+    public class SpikyMoveState : SpikyStateBase
     {
     }
 
-    public class SpikySlidingState : SpikyStateBase
-    {
-    }
-
-    public class SpikyLaydownState : SpikyStateBase
+    public class SpikyChangeState : SpikyStateBase
     {
         public override void OnEnterState(IState prevState)
         {
-            _avatar.anim.SetTrigger("Laydown");
+            _avatar.anim.SetTrigger("Change");
         }
 
         protected override void OnAnimationEvent(string eventName)
         {
-            if (eventName == "SpikyLaydownOver")
-                _stateMachine.GotoState("SpikySlidingState");
+            if (eventName == "SpikyLaydownOver" || eventName == "SpikyRiseupOver")
+            {
+                _stateMachine.GotoState("SpikyMoveState");
+            }
         }
 
         public override void FixedUpdate()
@@ -44,17 +42,24 @@ namespace SeafoodStudio
         }
     }
 
-    public class SpikyRiseupState : SpikyStateBase
+    public class SpikyHurtState : SpikyStateBase
     {
         public override void OnEnterState(IState prevState)
         {
-            _avatar.anim.SetTrigger("Riseup");
+            _avatar.anim.SetTrigger("Hurt");
+            _entity.StopCoroutine(EndHurt());
+            _entity.StartCoroutine(EndHurt());
         }
 
-        protected override void OnAnimationEvent(string eventName)
+        public override void OnLeaveState()
         {
-            if (eventName == "SpikyRiseupOver")
-                _stateMachine.GotoState("SpikyRollingState");
+            _avatar.anim.SetTrigger("Move");
+        }
+
+        private IEnumerator EndHurt()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _stateMachine.GotoState("SpikyMoveState");
         }
 
         public override void FixedUpdate()

@@ -3,31 +3,22 @@ using System.Collections;
 
 namespace SeafoodStudio
 {
-    public class Spiky : Actor
+    public class Spiky : Enemy
     {
         protected override void Init()
         {
             base.Init();
-            _stateController.AddState(new SpikyRollingState());
-            _stateController.AddState(new SpikyLaydownState());
-            _stateController.AddState(new SpikySlidingState());
-            _stateController.AddState(new SpikyRiseupState());
+            _stateController.AddState(new SpikyMoveState());
+            _stateController.AddState(new SpikyChangeState());
+            _stateController.AddState(new SpikyHurtState());
 
-            _stateController.InitState("SpikyRollingState");
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                bool fromRight = (transform.position.x > other.transform.position.x);
-                other.gameObject.GetComponent<Player>().Hurt(1, fromRight);
-            }
+            _stateController.InitState("SpikyMoveState");
         }
 
         public override void Hurt(int damage)
         {
-            Die();
+            //Die();
+            _stateController.GotoState("SpikyHurtState");
         }
     }
 }

@@ -7,6 +7,7 @@ namespace SeafoodStudio
     {
         public float Speed = 9f;
         public float JumpVelocity = 28f;
+        public int HP = 1;
 
         protected Avatar _avatar;
         protected ActorStateMachine _stateController;

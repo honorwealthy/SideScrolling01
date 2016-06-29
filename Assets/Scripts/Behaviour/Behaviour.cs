@@ -14,10 +14,6 @@ namespace SeafoodStudio
         {
             _entity = gameObject.GetComponent<Actor>();
             _stateController = gameObject.GetComponent<ActorStateMachine>();
-
-            gameObject.GetComponent<Avatar>().OnAnimationEvent += OnAnimationEvent;
         }
-
-        protected virtual void OnAnimationEvent(string eventName) { }
     }
 }

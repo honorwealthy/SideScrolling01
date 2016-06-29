@@ -59,4 +59,30 @@ namespace SeafoodStudio
             //cant move
         }
     }
+
+    public class MettoolHurtState : MettoolStateBase
+    {
+        public override void OnEnterState(IState prevState)
+        {
+            _avatar.anim.SetTrigger("Hurt");
+            _entity.StopCoroutine(EndHurt());
+            _entity.StartCoroutine(EndHurt());
+        }
+
+        public override void OnLeaveState()
+        {
+            _avatar.anim.SetTrigger("Move");
+        }
+
+        private IEnumerator EndHurt()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _stateMachine.GotoState("MettoolMoveState");
+        }
+
+        public override void FixedUpdate()
+        {
+            //cant move
+        }
+    }
 }

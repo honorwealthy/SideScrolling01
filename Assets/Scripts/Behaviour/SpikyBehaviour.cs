@@ -3,9 +3,8 @@ using System.Collections;
 
 namespace SeafoodStudio
 {
-    public class SpikyBehaviour : Behaviour
+    public class SpikyBehaviour : EnemyBehaviour
     {
-        private bool _rethink = true;
         public GameObject ForwardChecker;
         public GameObject WallChecker;
 
@@ -15,14 +14,8 @@ namespace SeafoodStudio
             Direction = gameObject.transform.localScale.x > 0 ? 1 : -1;
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            if (_rethink)
-            {
-                _entity.StartCoroutine(Think());
-                _rethink = false;
-            }
-
             if (!CheckGround() || CheckWall())
             {
                 Direction *= -1;
@@ -39,24 +32,14 @@ namespace SeafoodStudio
             return WallChecker.GetComponent<GroundChecker>().CheckGround();
         }
 
-        private IEnumerator Think()
+        protected override void Think()
         {
-            yield return new WaitForSeconds(1f);
-            _rethink = true;
-
             var rand = Random.Range(0, 8);
-            if (_stateController.CurrentStateName == "SpikyRollingState")
+            if (_stateController.CurrentStateName == "SpikyMoveState")
             {
                 if (rand < 1)
                 {
-                    _stateController.GotoState("SpikyLaydownState");
-                }
-            }
-            else if (_stateController.CurrentStateName == "SpikySlidingState")
-            {
-                if (rand < 1)
-                {
-                    _stateController.GotoState("SpikyRiseupState");
+                    _stateController.GotoState("SpikyChangeState");
                 }
             }
         }

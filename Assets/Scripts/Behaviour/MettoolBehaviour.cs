@@ -3,9 +3,8 @@ using System.Collections;
 
 namespace SeafoodStudio
 {
-    public class MettoolBehaviour : Behaviour
+    public class MettoolBehaviour : EnemyBehaviour
     {
-        private bool _rethink = true;
         public GameObject Buster;
         public Transform Spurt;
         public GameObject ForwardChecker;
@@ -16,14 +15,9 @@ namespace SeafoodStudio
             Direction = gameObject.transform.localScale.x > 0 ? -1 : 1;
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
-            if (_rethink)
-            {
-                _entity.StartCoroutine(Think());
-                _rethink = false;
-            }
-
+            base.FixedUpdate();
             if (!CheckGround())
             {
                 Direction *= -1;
@@ -35,11 +29,8 @@ namespace SeafoodStudio
 			return ForwardChecker.GetComponent<GroundChecker> ().CheckGround();
         }
 
-        private IEnumerator Think()
+        protected override void Think()
         {
-            yield return new WaitForSeconds(2f);
-            _rethink = true;
-
             var rand = Random.Range(0, 5);
             if (_stateController.CurrentStateName == "MettoolMoveState")
             {
