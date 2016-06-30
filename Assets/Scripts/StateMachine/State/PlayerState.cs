@@ -222,4 +222,41 @@ namespace SeafoodStudio
             // cant move
         }
     }
+
+    public class ReadyState : PlayerStateBase
+    {
+        public ReadyState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void OnEnterState(IState<string> prevState)
+        {
+            //_avatar.anim.SetTrigger("Hurt");
+            _player.StartCoroutine(Waiting());
+        }
+
+        private IEnumerator Waiting()
+        {
+            yield return new WaitForSeconds(1f);
+            _stateMachine.GotoState("GroundState");
+        }
+
+        public override void FixedUpdate()
+        {
+            // cant move
+        }
+    }
+
+    public class EndState : PlayerStateBase
+    {
+        public EndState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void OnEnterState(IState<string> prevState)
+        {
+            _avatar.rb2d.velocity = new Vector2();
+        }
+
+        public override void FixedUpdate()
+        {
+            // cant move
+        }
+    }
 }

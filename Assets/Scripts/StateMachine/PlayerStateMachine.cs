@@ -36,6 +36,8 @@ namespace SeafoodStudio
             AddState(new AirState(this));
             AddState(new GroundAttackState(this));
             AddState(new HurtState(this));
+            AddState(new ReadyState(this));
+            AddState(new EndState(this));
         }
 
         private void AddState(PlayerStateBase state)
@@ -45,7 +47,7 @@ namespace SeafoodStudio
 
         private void Start()
         {
-            _stateMachine.GotoState("GroundState");
+            _stateMachine.GotoState("ReadyState");
         }
 
         private void FixedUpdate()

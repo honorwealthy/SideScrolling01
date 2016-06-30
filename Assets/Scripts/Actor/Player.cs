@@ -20,6 +20,7 @@ namespace SeafoodStudio
         {
             this.Avatar = GetComponent<Avatar>();
             _playerControlStateMachine = gameObject.AddComponent<PlayerStateMachine>();
+            HPViewer.Instance.SetHP(HP);
         }
 
         public string currentname = "";
@@ -33,6 +34,7 @@ namespace SeafoodStudio
             if (gameObject.layer == LayerMask.NameToLayer("Player"))
             {
                 HP -= damage;
+                HPViewer.Instance.SetHP(HP);
 
                 if (HP > 0)
                 {
@@ -63,6 +65,8 @@ namespace SeafoodStudio
             }
             OnExplode();
             Destroy(gameObject, 0.1f);
+
+            GameManager.Instance.GameOver(false);
         }
 
         private void OnExplode()
@@ -73,6 +77,11 @@ namespace SeafoodStudio
             // Instantiate the explosion where the rocket is with the random rotation.
             var expl = Instantiate(explosion, transform.position, randomRotation);
             Destroy(expl, 1f);
+        }
+
+        public void EndGame()
+        {
+            _playerControlStateMachine.GotoState("EndState");
         }
     }
 }

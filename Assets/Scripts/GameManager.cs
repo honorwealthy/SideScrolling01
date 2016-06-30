@@ -2,38 +2,60 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace SeafoodStudio
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonObject<GameManager>
     {
-        private Dictionary<string, EventObject> eventMap = new Dictionary<string, EventObject>();
+        public Text GameOverText;
 
-        public void AddObserver(string eventName, Action<object> action)
+        private void Awake()
         {
-            if (!eventMap.ContainsKey(eventName))
-                eventMap.Add(eventName, new EventObject());
-
-            eventMap[eventName].Handler += action;
+            GameOverText.text = "";
         }
 
-        public void PostNotificationName(string eventName, object userInfo)
+        public void GameOver(bool win)
         {
-            if (eventMap.ContainsKey(eventName))
+            if (win)
             {
-                eventMap[eventName].Notify(userInfo);
+                GameOverText.text = "You Win";
+            }
+            else
+            {
+                GameOverText.text = "You Lose";
             }
         }
 
-        public class EventObject
-        {
-            public event Action<object> Handler;
 
-            public void Notify(object userInfo)
-            {
-                if (Handler != null)
-                    Handler(userInfo);
-            }
-        }
+
+        //private Dictionary<string, EventObject> eventMap = new Dictionary<string, EventObject>();
+
+        //public void AddObserver(string eventName, Action<object> action)
+        //{
+        //    if (!eventMap.ContainsKey(eventName))
+        //        eventMap.Add(eventName, new EventObject());
+
+        //    eventMap[eventName].Handler += action;
+        //}
+
+        //public void PostNotificationName(string eventName, object userInfo)
+        //{
+        //    if (eventMap.ContainsKey(eventName))
+        //    {
+        //        eventMap[eventName].Notify(userInfo);
+        //    }
+        //}
+
+        //public class EventObject
+        //{
+        //    public event Action<object> Handler;
+
+        //    public void Notify(object userInfo)
+        //    {
+        //        if (Handler != null)
+        //            Handler(userInfo);
+        //    }
+        //}
     }
 }
