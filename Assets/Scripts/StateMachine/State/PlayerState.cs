@@ -217,6 +217,11 @@ namespace SeafoodStudio
             _avatar.rb2d.velocity = new Vector2(direction * 3, 7);
         }
 
+        public override void OnLeaveState()
+        {
+            _avatar.anim.SetBool("Immortal", true);
+        }
+
         public override void FixedUpdate()
         {
             // cant move

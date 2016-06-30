@@ -54,6 +54,7 @@ namespace SeafoodStudio
             gameObject.layer = LayerMask.NameToLayer("Ignore Entity");
             yield return new WaitForSeconds(ImmortalDuration);
             gameObject.layer = LayerMask.NameToLayer("Player");
+            Avatar.anim.SetBool("Immortal", false);
         }
 
         public void Die()
