@@ -20,6 +20,10 @@ namespace SeafoodStudio
         {
             this.Avatar = GetComponent<Avatar>();
             _playerControlStateMachine = gameObject.AddComponent<PlayerStateMachine>();
+        }
+
+        private void Start()
+        {
             HPViewer.Instance.SetHP(HP);
         }
 
@@ -67,6 +71,7 @@ namespace SeafoodStudio
             OnExplode();
             Destroy(gameObject, 0.1f);
 
+            HPViewer.Instance.SetHP(0);
             GameManager.Instance.GameOver(false);
         }
 

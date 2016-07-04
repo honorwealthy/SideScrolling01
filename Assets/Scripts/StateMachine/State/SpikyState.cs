@@ -67,4 +67,12 @@ namespace SeafoodStudio
             //cant move
         }
     }
+
+    public class SpikyDeadState : SpikyStateBase
+    {
+        public override void FixedUpdate()
+        {
+            //cant move
+        }
+    }
 }

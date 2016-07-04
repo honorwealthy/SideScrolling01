@@ -18,6 +18,8 @@ namespace SeafoodStudio
 
         public override void Die()
         {
+            _avatar.rb2d.isKinematic = true;
+
             Collider2D[] cols = GetComponents<Collider2D>();
             foreach (Collider2D c in cols)
             {

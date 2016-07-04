@@ -3,15 +3,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace SeafoodStudio
 {
-    public class GameManager : SingletonObject<GameManager>
+    public class GameManager : MonoBehaviour
     {
         public Text GameOverText;
+        public Text PauseText;
+        public static GameManager Instance;
 
         private void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+            else if (Instance != this)
+                Destroy(gameObject);
+
             GameOverText.text = "";
         }
 
@@ -25,37 +33,27 @@ namespace SeafoodStudio
             {
                 GameOverText.text = "You Lose";
             }
+            StartCoroutine(BackToMainMenu());
         }
 
+        private IEnumerator BackToMainMenu()
+        {
+            yield return new WaitForSeconds(2f);
+            SceneManager.LoadScene(0);
+        }
 
+        private bool isPause = false;
+        public void Pause()
+        {
+            isPause = !isPause;
+            Time.timeScale = isPause ? 0 : 1;
+            PauseText.text = isPause ? "~ Pause ~" : "";
+        }
 
-        //private Dictionary<string, EventObject> eventMap = new Dictionary<string, EventObject>();
-
-        //public void AddObserver(string eventName, Action<object> action)
-        //{
-        //    if (!eventMap.ContainsKey(eventName))
-        //        eventMap.Add(eventName, new EventObject());
-
-        //    eventMap[eventName].Handler += action;
-        //}
-
-        //public void PostNotificationName(string eventName, object userInfo)
-        //{
-        //    if (eventMap.ContainsKey(eventName))
-        //    {
-        //        eventMap[eventName].Notify(userInfo);
-        //    }
-        //}
-
-        //public class EventObject
-        //{
-        //    public event Action<object> Handler;
-
-        //    public void Notify(object userInfo)
-        //    {
-        //        if (Handler != null)
-        //            Handler(userInfo);
-        //    }
-        //}
+        private void Update()
+        {
+            if (Input.GetButtonDown("Esc"))
+                Pause();
+        }
     }
 }

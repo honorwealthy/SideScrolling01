@@ -11,6 +11,7 @@ namespace SeafoodStudio
             _stateController.AddState(new SpikyMoveState());
             _stateController.AddState(new SpikyChangeState());
             _stateController.AddState(new SpikyHurtState());
+            _stateController.AddState(new SpikyDeadState());
 
             _stateController.InitState("SpikyMoveState");
         }
@@ -22,7 +23,10 @@ namespace SeafoodStudio
             if (HP > 0)
                 _stateController.GotoState("SpikyHurtState");
             else
+            {
+                _stateController.GotoState("SpikyDeadState");
                 Die();
+            }
         }
     }
 }

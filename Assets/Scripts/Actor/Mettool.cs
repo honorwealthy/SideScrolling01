@@ -14,6 +14,7 @@ namespace SeafoodStudio
             _stateController.AddState(new MettoolHideState());
             _stateController.AddState(new MettoolShootState());
             _stateController.AddState(new MettoolHurtState());
+            _stateController.AddState(new MettoolDeadState());
 
             _stateController.InitState("MettoolMoveState");
 
@@ -29,7 +30,10 @@ namespace SeafoodStudio
                 if (HP > 0)
                     _stateController.GotoState("MettoolHurtState");
                 else
+                {
+                    _stateController.GotoState("MettoolDeadState");
                     Die();
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ namespace SeafoodStudio
 
         protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             if (!CheckGround() || CheckWall())
             {
                 Direction *= -1;

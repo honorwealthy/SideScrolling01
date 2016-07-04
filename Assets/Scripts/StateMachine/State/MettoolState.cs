@@ -85,4 +85,12 @@ namespace SeafoodStudio
             //cant move
         }
     }
+
+    public class MettoolDeadState : MettoolStateBase
+    {
+        public override void FixedUpdate()
+        {
+            //cant move
+        }
+    }
 }
