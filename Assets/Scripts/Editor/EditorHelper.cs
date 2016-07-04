@@ -81,7 +81,7 @@ public class MountainPartBuilderEditor : Editor
 //        DrawDefaultInspector();
 
 //        GUILayout.Box("", new GUILayoutOption[] { GUILayout.ExpandWidth(true), GUILayout.Height(1) });
-        
+
 //        if (GUILayout.Button("Shoot"))
 //        {
 //            Mettool myScript = (Mettool)target;
@@ -102,3 +102,14 @@ public class MountainPartBuilderEditor : Editor
 //        }
 //    }
 //}
+public class AddMenu : EditorWindow
+{
+
+    [MenuItem("Edit/Reset Playerprefs")]
+
+    public static void DeletePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
+}
