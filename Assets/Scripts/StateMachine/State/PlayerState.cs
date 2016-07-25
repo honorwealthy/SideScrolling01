@@ -101,6 +101,7 @@ namespace SeafoodStudio
         public override void OnEnterState(IState<string> prevState)
         {
             _avatar.anim.SetTrigger("Attack");
+            _avatar.rb2d.velocity = new Vector2(0, _avatar.rb2d.velocity.y);
         }
 
         public override void Update()

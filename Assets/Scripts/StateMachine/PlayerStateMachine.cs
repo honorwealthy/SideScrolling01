@@ -57,12 +57,14 @@ namespace SeafoodStudio
 
         private void Update()
         {
-            _stateMachine.CurrentState.Update();
+            if (Time.timeScale != 0)
+                _stateMachine.CurrentState.Update();
         }
 
         private void LateUpdate()
         {
-            _stateMachine.CurrentState.LateUpdate();
+            if (Time.timeScale != 0)
+                _stateMachine.CurrentState.LateUpdate();
         }
     }
 }
